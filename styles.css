@@ -1,0 +1,81 @@
+/* Impostazioni di base */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f6f8fa;
+    color: #24292e;
+}
+
+/* Header */
+header {
+    background: #24292e;
+    color: #ffffff;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-weight: 500;
+}
+
+header p {
+    margin: 0;
+    font-weight: 300;
+}
+
+/* Sezioni */
+section {
+    padding: 20px;
+    margin: 20px;
+    background: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+section h2 {
+    color: #24292e;
+    font-weight: 500;
+}
+
+/* Stile per gli elenchi */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    background: #ffffff;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+footer {
+    background: #24292e;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+}
+
+/* Link */
+a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    header, section, footer {
+        margin: 10px;
+    }
+}
