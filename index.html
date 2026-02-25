@@ -3,58 +3,382 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amin Borqal - Portfolio</title>
+    <title>Amin Borqal – Portfolio</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/x-icon" href="https://github.githubassets.com/favicons/favicon.svg">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <header>
-        <h1>Amin Borqal</h1>
-        <p>Computer Science Engineering Student | Passionate about AI & Data Science</p>
-    </header>
 
-    <section id="about-me">
-        <h2>About Me</h2>
-        <p>As a Computer Science Engineering student at the University of Bergamo, I am deeply immersed in exploring the realms of Artificial Intelligence and Data Science. My curiosity and enthusiasm drive me to understand the intricacies of technology and its application in solving real-world problems.</p>
-    </section>
-
-    <section id="skills">
-        <h2>Skills & Technologies</h2>
-        <div class="skills-list">
-            <i class="fab fa-java"></i> Java <br>
-            <i class="fab fa-python"></i> Python <br>
-            <i class="fab fa-html5"></i> HTML <br>
-            <i class="fab fa-css3-alt"></i> CSS <br>
-            <i class="fab fa-js-square"></i> JavaScript <br>
-            <i class="fas fa-database"></i> SQL <br>
-            <!-- Altre icone e competenze -->
-        </div>
-    </section>
-
-    <section id="projects">
-        <h2>Featured Projects</h2>
-        <p><strong>Air Quality Data Analysis:</strong> A project using Matlab to analyze the correlation between air pollutants and atmospheric conditions. <br>
-           <strong>Gold Price Forecasting:</strong> Utilizing statistical models to predict the trends in gold prices. <br>
-           <strong>Software Engineering Project:</strong> Development of a web application for job listings and applications.</p>
-    </section>
-
-    <section id="Xaccount">
-        <div class="twitter-widget">
-    <a href="https://twitter.com/borqal_amin?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @borqal_amin</a>
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-    
+<!-- Navigation -->
+<nav id="navbar">
+    <div class="nav-container">
+        <a href="#" class="nav-logo">AB</a>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#extra">Activities</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
     </div>
-    </section>
-    <footer>
-        <p>Contact me: <a href="mailto:aminborqal10@gmail.com">aminborqal10@gmail.com</a> | LinkedIn: <a href="https://linkedin.com/in/aminborqal">aminborqal</a></p>
-    </footer>
-    
+</nav>
 
+<!-- Hero -->
+<header id="hero">
+    <div class="hero-content">
+        <h1>Amin Borqal</h1>
+        <p class="hero-subtitle">Research Intern &mdash; Machine Learning for Proteomics<br>Geo-Spatial Data Scientist</p>
+        <div class="hero-meta">
+            <span><i class="fas fa-map-marker-alt"></i> Bergamo, Italy</span>
+            <span><i class="fas fa-envelope"></i> <a href="mailto:aminborqal10@gmail.com">aminborqal10@gmail.com</a></span>
+            <span><i class="fab fa-github"></i> <a href="https://github.com/aminb00" target="_blank" rel="noopener">aminb00</a></span>
+            <span><i class="fab fa-linkedin"></i> <a href="https://linkedin.com/in/aminborqal" target="_blank" rel="noopener">aminborqal</a></span>
+        </div>
+    </div>
+</header>
+
+<main>
+
+<!-- About / Profile -->
+<section id="about">
+    <h2><i class="fas fa-user"></i> Profile</h2>
+    <p>M.Sc. student in Computer Engineering at the University of Bergamo, passionate about artificial intelligence to solve real-world challenges. Organized, cheerful, and curious, I thrive in dynamic, multicultural environments. Beyond academics, my interest in global dynamics and politics enriches my perspective, enabling me to cultivate a broad and informed perspective on world affairs.</p>
+</section>
+
+<!-- Experience -->
+<section id="experience">
+    <h2><i class="fas fa-briefcase"></i> Experience</h2>
+
+    <div class="timeline">
+
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="timeline-header">
+                    <div>
+                        <h3>Research Intern &mdash; Machine Learning for Proteomics</h3>
+                        <p class="org">Universiteit Antwerpen, ADReM Data Lab &middot; Antwerp, Flanders (BE)</p>
+                    </div>
+                    <span class="date">Sep 2025 &ndash; Jan 2026</span>
+                </div>
+                <ul>
+                    <li><strong>Project:</strong> Exploring Fragmentation Competition in Proteomics Data to Decode Chimeric Spectra.</li>
+                    <li>Designed and implemented a complete analytical pipeline from raw MS data processing to sparse deconvolution: integrated MSFragger-DDA+ for multi-peptide identification, IonQuant for MS1 quantification, Prosit Deep Learning Model for peptide spectra predictions, and dynamic mass-channel representation to construct design matrices for LASSO-based spectral decomposition.</li>
+                    <li>Performed large-scale fragment ion annotation, spectral similarity analysis, and statistical validation to characterize fragmentation competition, revealing that MS1 abundance and MS2 fragmentation dominance are governed by distinct physicochemical mechanisms.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="timeline-header">
+                    <div>
+                        <h3>Geo-Spatial Data Scientist</h3>
+                        <p class="org">PNRR GRINS, Dept. of Economics, University of Bergamo &middot; Bergamo (IT)</p>
+                    </div>
+                    <span class="date">Feb 2025 &ndash; Nov 2025</span>
+                </div>
+                <ul>
+                    <li>Extending thesis work by developing a reproducible pipeline to regularly update a high-resolution, daily dataset of atmospheric emissions for all Italian municipalities.</li>
+                    <li>Designing and implementing geo-matching (area-weighted allocation) to transform grid-based emissions into municipality-level time series.</li>
+                    <li>Leveraging High Performance Computing (HPC) for large-scale spatio-temporal processing and quality assurance.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="timeline-header">
+                    <div>
+                        <h3>Bachelor's Thesis &mdash; Italian Daily Geo-Referenced Emissions</h3>
+                        <p class="org">University of Bergamo &middot; Bergamo (IT)</p>
+                    </div>
+                    <span class="date">Apr 2024 &ndash; Nov 2024</span>
+                </div>
+                <ul>
+                    <li>Built the Italian Emission Daily Dataset (IEDD): daily emissions for Italy (2000–2020) at 0.05°&times;0.1° resolution from CAMS-REG inventories and temporal profiles.</li>
+                    <li>Processed 7 pollutants across 12 GNFR sectors; implemented temporal downscaling and spatial aggregation to municipalities in R.</li>
+                    <li>Use case for air-quality modeling and policy analysis.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="timeline-header">
+                    <div>
+                        <h3>Extrusion Worker</h3>
+                        <p class="org">Guarniflon S.P.A. &middot; Castelli Calepio (IT)</p>
+                    </div>
+                    <span class="date">Feb 2022 &ndash; Jan 2025</span>
+                </div>
+                <ul>
+                    <li>Operated and maintained extrusion machinery for PTFE products.</li>
+                    <li>Part-time job during studies.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="timeline-header">
+                    <div>
+                        <h3>Internship</h3>
+                        <p class="org">HarnekInfo &middot; Sarnico (IT)</p>
+                    </div>
+                    <span class="date">Feb 2018 &amp; Jun 2018</span>
+                </div>
+                <ul>
+                    <li>Supported system administration tasks for client companies at an IT services firm.</li>
+                    <li>Contributed to web development projects, gaining practical industry experience.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Education -->
+<section id="education">
+    <h2><i class="fas fa-graduation-cap"></i> Education</h2>
+
+    <div class="timeline">
+
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="timeline-header">
+                    <div>
+                        <h3>Erasmus+ Exchange &mdash; M.Sc. in Computer Science</h3>
+                        <p class="org">Universiteit Antwerpen &middot; Antwerp, Flanders, Belgium</p>
+                    </div>
+                    <span class="date">Sep 2025 &ndash; Jan 2026</span>
+                </div>
+                <ul>
+                    <li>Erasmus exchange semester as part of the Master's program in Computer Engineering.</li>
+                    <li>Subjects: Research Project Internship in Machine Learning for MS/MS Proteomics, Information Retrieval, Geographical Information Systems (GIS).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="timeline-header">
+                    <div>
+                        <h3>M.Sc. in Computer Engineering</h3>
+                        <p class="org">University of Bergamo &middot; Bergamo, Italy</p>
+                    </div>
+                    <span class="date">Present</span>
+                </div>
+                <ul>
+                    <li>Focus on System Identification, Data Science, and computational methods.</li>
+                    <li>Key subjects: Algorithms, System Identification, Statistical Learning, Optimization, Adaptive Learning for Dynamical Systems, Statistics for High Dimensional Data.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="timeline-header">
+                    <div>
+                        <h3>B.Sc. in Computer Engineering</h3>
+                        <p class="org">University of Bergamo &middot; Bergamo, Italy</p>
+                    </div>
+                    <span class="date">December 2024</span>
+                </div>
+                <ul>
+                    <li>Focused on foundational engineering principles and computational technologies.</li>
+                    <li>Key subjects: Mathematical Analysis, Algebra, Statistics, Control Systems, Object-Oriented Programming, Databases, Web Technologies.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Projects -->
+<section id="projects">
+    <h2><i class="fas fa-code-branch"></i> Projects</h2>
+
+    <div class="project-grid">
+
+        <div class="project-card">
+            <div class="project-card-header">
+                <i class="fas fa-lightbulb"></i>
+                <h3>ROUTEin &mdash; CREO-Lab Challenge</h3>
+                <span class="date">2025</span>
+            </div>
+            <p>Startup concept for a modular SaaS platform for field service management with AI-driven scheduling, real-time cost monitoring, and a mobile app for technicians. Ideated in response to a business challenge by Magris S.p.A.</p>
+            <ul>
+                <li>Addressed productivity gaps in Italian SMEs in maintenance/installation/rental services.</li>
+                <li>Optimized routing to reduce travel time &amp; fuel; dashboards with reliable KPIs; mobile digitized workflows.</li>
+                <li>Strengthened skills in design thinking, Business Model Canvas, and pitching.</li>
+            </ul>
+        </div>
+
+        <div class="project-card">
+            <div class="project-card-header">
+                <i class="fas fa-wallet"></i>
+                <h3>Spendly &mdash; Expense Management App</h3>
+                <span class="date">2025</span>
+            </div>
+            <p>Modern web app for personal and group expense management with interactive dashboards and analytics.</p>
+            <ul>
+                <li>Vue.js frontend, Spring Boot (Java) backend with REST API, MVC pattern.</li>
+                <li>UML diagrams, automated JUnit tests, static code analysis.</li>
+                <li>Features: secure auth, group expenses, budgeting tools, charts, responsive UI.</li>
+            </ul>
+        </div>
+
+        <div class="project-card">
+            <div class="project-card-header">
+                <i class="fas fa-plane"></i>
+                <h3>Aircraft Price Analysis</h3>
+                <span class="date">2025</span>
+            </div>
+            <p>Predicting aircraft prices from technical features using multiple statistical learning approaches.</p>
+            <ul>
+                <li>Linear regression, Ridge, Lasso, GAM, tree-based methods.</li>
+                <li>Log-transformations, outlier handling, multicollinearity checks.</li>
+                <li>Stack: Python (scikit-learn, statsmodels, PyGAM), matplotlib, seaborn, LaTeX.</li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+<!-- Technical Skills -->
+<section id="skills">
+    <h2><i class="fas fa-tools"></i> Technical Skills</h2>
+
+    <div class="skills-group">
+        <h3>Programming Languages</h3>
+        <div class="skill-tags">
+            <span class="skill-tag"><i class="fab fa-r-project"></i> R</span>
+            <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
+            <span class="skill-tag">MATLAB</span>
+            <span class="skill-tag"><i class="fab fa-java"></i> Java</span>
+            <span class="skill-tag">C++</span>
+            <span class="skill-tag"><i class="fas fa-database"></i> SQL</span>
+            <span class="skill-tag">LaTeX</span>
+        </div>
+    </div>
+
+    <div class="skills-group">
+        <h3>Frameworks &amp; Tools</h3>
+        <div class="skill-tags">
+            <span class="skill-tag"><i class="fab fa-js-square"></i> JavaScript</span>
+            <span class="skill-tag"><i class="fab fa-vuejs"></i> Vue.js</span>
+            <span class="skill-tag">Flask</span>
+            <span class="skill-tag">Spring Boot</span>
+            <span class="skill-tag"><i class="fab fa-git-alt"></i> Git</span>
+            <span class="skill-tag"><i class="fab fa-github"></i> GitHub</span>
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">HPC</span>
+        </div>
+    </div>
+
+    <div class="skills-group">
+        <h3>Languages</h3>
+        <div class="lang-bars">
+            <div class="lang-item">
+                <span class="lang-name">Italian</span>
+                <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+                <span class="lang-level">Native</span>
+            </div>
+            <div class="lang-item">
+                <span class="lang-name">Moroccan Arabic</span>
+                <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+                <span class="lang-level">Native</span>
+            </div>
+            <div class="lang-item">
+                <span class="lang-name">English</span>
+                <div class="lang-bar"><div class="lang-fill" style="width:85%"></div></div>
+                <span class="lang-level">Professional</span>
+            </div>
+            <div class="lang-item">
+                <span class="lang-name">French</span>
+                <div class="lang-bar"><div class="lang-fill" style="width:35%"></div></div>
+                <span class="lang-level">Basic</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Extracurricular & Hobbies -->
+<section id="extra">
+    <h2><i class="fas fa-star"></i> Extracurricular &amp; Hobbies</h2>
+
+    <div class="extra-grid">
+        <div class="extra-card">
+            <h3><i class="fas fa-robot"></i> Robotics Project Developer</h3>
+            <p class="org">BergamoScienza &middot; Jan 2019 &ndash; Jun 2020</p>
+            <p>Built a domotic greenhouse controlled by Arduino as the main project. Presented during school-science events to engage attendees about technology and sustainability.</p>
+        </div>
+        <div class="extra-card">
+            <h3><i class="fas fa-bullhorn"></i> School Ambassador</h3>
+            <p class="org">Open Days Initiative &middot; Sep 2019 &ndash; Feb 2020</p>
+            <p>Represented the school, explaining educational programs and showcasing student projects to prospective students and families.</p>
+        </div>
+        <div class="extra-card">
+            <h3><i class="fas fa-futbol"></i> Sports &amp; Interests</h3>
+            <p>Swimming, cycling, exploring new trails. Passionate about football. Keen interest in global events, politics, and economic trends.</p>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<!-- Footer / Contact -->
+<footer id="contact">
+    <div class="footer-content">
+        <h2>Get in Touch</h2>
+        <div class="footer-links">
+            <a href="mailto:aminborqal10@gmail.com"><i class="fas fa-envelope"></i> aminborqal10@gmail.com</a>
+            <a href="https://github.com/aminb00" target="_blank" rel="noopener"><i class="fab fa-github"></i> aminb00</a>
+            <a href="https://linkedin.com/in/aminborqal" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> aminborqal</a>
+        </div>
+        <p class="footer-copy">&copy; 2026 Amin Borqal</p>
+    </div>
+</footer>
+
+<script>
+(function() {
+    var toggle = document.querySelector('.nav-toggle');
+    var links = document.querySelector('.nav-links');
+    toggle.addEventListener('click', function() {
+        links.classList.toggle('open');
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(function(a) {
+        a.addEventListener('click', function() {
+            links.classList.remove('open');
+        });
+    });
+
+    var navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 60) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+})();
+</script>
 
 </body>
 </html>
-
