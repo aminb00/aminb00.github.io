@@ -503,6 +503,81 @@ a:hover { color: var(--accent2); }
 }
 .project-featured:hover .pf-icon { transform: scale(1.08) rotate(-3deg); }
 
+/* project links (GitHub icon) */
+.pf-links {
+    display: flex; gap: 14px; margin-top: 16px;
+}
+.pf-links a {
+    font-size: 1.3rem;
+    color: var(--text-dim);
+    transition: color .25s, transform .25s;
+}
+.pf-links a:hover { color: var(--accent); transform: translateY(-2px); }
+
+/* ── Other Projects Grid ───────────────────────────────────── */
+.other-projects-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    text-align: center;
+    margin-top: 64px;
+    margin-bottom: 28px;
+}
+
+.other-projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.op-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex; flex-direction: column;
+    transition: background .25s, border-color .25s, transform .25s;
+    text-decoration: none;
+    color: inherit;
+}
+.op-card:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(137,180,250,0.25);
+    transform: translateY(-5px);
+}
+
+.op-top {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 14px;
+}
+.op-top > i:first-child { font-size: 1.4rem; color: var(--accent); }
+.op-github { font-size: 1.2rem; color: var(--text-dim); transition: color .25s; }
+.op-card:hover .op-github { color: var(--accent); }
+
+.op-card h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    margin-bottom: 10px;
+}
+
+.op-card p {
+    font-size: .85rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    flex: 1;
+    margin-bottom: 16px;
+}
+
+.op-tags {
+    display: flex; flex-wrap: wrap; gap: 6px;
+}
+.op-tags span {
+    font-family: var(--mono);
+    font-size: .7rem;
+    color: var(--text-dim);
+}
+
 /* ── Skills Mosaic ─────────────────────────────────────────── */
 .skills-mosaic {
     display: grid;
