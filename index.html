@@ -3,58 +3,416 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amin Borqal - Portfolio</title>
+    <title>Amin Borqal – Portfolio</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/x-icon" href="https://github.githubassets.com/favicons/favicon.svg">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <header>
-        <h1>Amin Borqal</h1>
-        <p>Computer Science Engineering Student | Passionate about AI & Data Science</p>
-    </header>
 
-    <section id="about-me">
-        <h2>About Me</h2>
-        <p>As a Computer Science Engineering student at the University of Bergamo, I am deeply immersed in exploring the realms of Artificial Intelligence and Data Science. My curiosity and enthusiasm drive me to understand the intricacies of technology and its application in solving real-world problems.</p>
-    </section>
+<div class="grain"></div>
 
-    <section id="skills">
-        <h2>Skills & Technologies</h2>
-        <div class="skills-list">
-            <i class="fab fa-java"></i> Java <br>
-            <i class="fab fa-python"></i> Python <br>
-            <i class="fab fa-html5"></i> HTML <br>
-            <i class="fab fa-css3-alt"></i> CSS <br>
-            <i class="fab fa-js-square"></i> JavaScript <br>
-            <i class="fas fa-database"></i> SQL <br>
-            <!-- Altre icone e competenze -->
-        </div>
-    </section>
-
-    <section id="projects">
-        <h2>Featured Projects</h2>
-        <p><strong>Air Quality Data Analysis:</strong> A project using Matlab to analyze the correlation between air pollutants and atmospheric conditions. <br>
-           <strong>Gold Price Forecasting:</strong> Utilizing statistical models to predict the trends in gold prices. <br>
-           <strong>Software Engineering Project:</strong> Development of a web application for job listings and applications.</p>
-    </section>
-
-    <section id="Xaccount">
-        <div class="twitter-widget">
-    <a href="https://twitter.com/borqal_amin?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @borqal_amin</a>
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-    
+<!-- Nav -->
+<nav id="nav">
+    <a href="#" class="logo">amin<span>.dev</span></a>
+    <button class="menu-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+    <div class="nav-links">
+        <a href="#about">about</a>
+        <a href="#experience">experience</a>
+        <a href="#education">education</a>
+        <a href="#projects">projects</a>
+        <a href="#skills">skills</a>
+        <a href="#contact">contact</a>
     </div>
-    </section>
-    <footer>
-        <p>Contact me: <a href="mailto:aminborqal10@gmail.com">aminborqal10@gmail.com</a> | LinkedIn: <a href="https://linkedin.com/in/aminborqal">aminborqal</a></p>
-    </footer>
-    
+</nav>
 
+<!-- Hero -->
+<section id="hero">
+    <div class="hero-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+    <div class="hero-inner">
+        <p class="hero-greeting">Hi, my name is</p>
+        <h1 class="hero-name">Amin Borqal<span class="cursor">_</span></h1>
+        <h2 class="hero-title">I build things with data &amp; AI.</h2>
+        <p class="hero-bio">M.Sc. student in Computer Engineering at the University of Bergamo. Research intern in Machine Learning for Proteomics. Geo-spatial data scientist. Passionate about turning complex data into real-world impact.</p>
+        <div class="hero-cta">
+            <a href="#projects" class="btn btn-primary">View my work</a>
+            <a href="mailto:aminborqal10@gmail.com" class="btn btn-outline">Get in touch</a>
+        </div>
+        <div class="hero-socials">
+            <a href="https://github.com/aminb00" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/aminborqal" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="mailto:aminborqal10@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+    </div>
+</section>
+
+<!-- About -->
+<section id="about" class="section reveal">
+    <div class="section-label">01</div>
+    <h2 class="section-title">About me</h2>
+    <div class="about-grid">
+        <div class="about-text">
+            <p>I'm a Computer Engineering M.Sc. student at the <strong>University of Bergamo</strong>, recently back from an Erasmus+ exchange at <strong>Universiteit Antwerpen</strong> where I worked on machine learning for mass-spectrometry proteomics.</p>
+            <p>My work sits at the intersection of <em>data science</em>, <em>geospatial analytics</em>, and <em>statistical learning</em>. I've built pipelines that process terabytes of atmospheric emission data, decoded chimeric spectra with deep learning models, and prototyped SaaS platforms with AI-driven scheduling.</p>
+            <p>When I'm not coding I'm probably playing football, following international politics, or exploring trails around Bergamo.</p>
+        </div>
+        <div class="about-details">
+            <div class="detail-card">
+                <div class="detail-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div><span class="detail-label">Location</span><span class="detail-value">Bergamo, Italy</span></div>
+            </div>
+            <div class="detail-card">
+                <div class="detail-icon"><i class="fas fa-graduation-cap"></i></div>
+                <div><span class="detail-label">Degree</span><span class="detail-value">M.Sc. Computer Eng.</span></div>
+            </div>
+            <div class="detail-card">
+                <div class="detail-icon"><i class="fas fa-language"></i></div>
+                <div><span class="detail-label">Languages</span><span class="detail-value">IT, AR, EN, FR</span></div>
+            </div>
+            <div class="detail-card">
+                <div class="detail-icon"><i class="fas fa-futbol"></i></div>
+                <div><span class="detail-label">Hobbies</span><span class="detail-value">Football, swimming, hiking</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Experience -->
+<section id="experience" class="section reveal">
+    <div class="section-label">02</div>
+    <h2 class="section-title">Where I've worked</h2>
+
+    <div class="exp-tabs">
+        <div class="tab-buttons">
+            <button class="tab-btn active" data-tab="0">Antwerpen</button>
+            <button class="tab-btn" data-tab="1">PNRR GRINS</button>
+            <button class="tab-btn" data-tab="2">Thesis</button>
+            <button class="tab-btn" data-tab="3">Guarniflon</button>
+            <button class="tab-btn" data-tab="4">HarnekInfo</button>
+            <div class="tab-indicator"></div>
+        </div>
+
+        <div class="tab-panels">
+            <div class="tab-panel active" data-panel="0">
+                <h3>Research Intern <span class="accent">@ Universiteit Antwerpen</span></h3>
+                <p class="tab-date">Sep 2025 &ndash; Jan 2026 &middot; ADReM Data Lab, Antwerp (BE)</p>
+                <ul>
+                    <li>Designed a full analytical pipeline from raw MS data to sparse deconvolution, integrating MSFragger-DDA+, IonQuant, Prosit deep learning, and LASSO-based spectral decomposition.</li>
+                    <li>Performed large-scale fragment ion annotation, spectral similarity analysis, and statistical validation of fragmentation competition in chimeric spectra.</li>
+                    <li>Revealed that MS1 abundance and MS2 fragmentation dominance are governed by distinct physicochemical mechanisms.</li>
+                </ul>
+            </div>
+            <div class="tab-panel" data-panel="1">
+                <h3>Geo-Spatial Data Scientist <span class="accent">@ University of Bergamo</span></h3>
+                <p class="tab-date">Feb 2025 &ndash; Nov 2025 &middot; PNRR GRINS, Dept. of Economics</p>
+                <ul>
+                    <li>Developing a reproducible pipeline to regularly update a high-resolution, daily dataset of atmospheric emissions for all Italian municipalities.</li>
+                    <li>Implementing geo-matching (area-weighted allocation) to transform grid-based emissions into municipality-level time series.</li>
+                    <li>Leveraging HPC for large-scale spatio-temporal processing and quality assurance.</li>
+                </ul>
+            </div>
+            <div class="tab-panel" data-panel="2">
+                <h3>Bachelor's Thesis <span class="accent">@ University of Bergamo</span></h3>
+                <p class="tab-date">Apr 2024 &ndash; Nov 2024</p>
+                <ul>
+                    <li>Built the Italian Emission Daily Dataset (IEDD): daily emissions for Italy (2000–2020) at 0.05°&times;0.1° resolution from CAMS-REG inventories.</li>
+                    <li>Processed 7 pollutants across 12 GNFR sectors; implemented temporal downscaling and spatial aggregation in R.</li>
+                    <li>Use case for air-quality modeling and policy analysis.</li>
+                </ul>
+            </div>
+            <div class="tab-panel" data-panel="3">
+                <h3>Extrusion Worker <span class="accent">@ Guarniflon S.P.A.</span></h3>
+                <p class="tab-date">Feb 2022 &ndash; Jan 2025 &middot; Castelli Calepio (IT)</p>
+                <ul>
+                    <li>Operated and maintained extrusion machinery for PTFE products.</li>
+                    <li>Part-time position held during undergraduate studies.</li>
+                </ul>
+            </div>
+            <div class="tab-panel" data-panel="4">
+                <h3>Intern <span class="accent">@ HarnekInfo</span></h3>
+                <p class="tab-date">Feb 2018 &amp; Jun 2018 &middot; Sarnico (IT)</p>
+                <ul>
+                    <li>Supported system administration tasks for client companies at an IT services firm.</li>
+                    <li>Contributed to web development projects, gaining practical industry experience.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Education -->
+<section id="education" class="section reveal">
+    <div class="section-label">03</div>
+    <h2 class="section-title">Education</h2>
+
+    <div class="edu-stack">
+        <div class="edu-card">
+            <div class="edu-accent"></div>
+            <div class="edu-body">
+                <div class="edu-top">
+                    <h3>Erasmus+ Exchange &mdash; M.Sc. Computer Science</h3>
+                    <span class="mono-date">Sep 2025 &ndash; Jan 2026</span>
+                </div>
+                <p class="edu-school">Universiteit Antwerpen &middot; Antwerp, Belgium</p>
+                <p>Research Project in ML for MS/MS Proteomics, Information Retrieval, GIS.</p>
+            </div>
+        </div>
+        <div class="edu-card">
+            <div class="edu-accent"></div>
+            <div class="edu-body">
+                <div class="edu-top">
+                    <h3>M.Sc. Computer Engineering</h3>
+                    <span class="mono-date">In progress</span>
+                </div>
+                <p class="edu-school">University of Bergamo &middot; Bergamo, Italy</p>
+                <p>Algorithms, System Identification, Statistical Learning, Optimization, Adaptive Learning, Statistics for High Dimensional Data.</p>
+            </div>
+        </div>
+        <div class="edu-card">
+            <div class="edu-accent"></div>
+            <div class="edu-body">
+                <div class="edu-top">
+                    <h3>B.Sc. Computer Engineering</h3>
+                    <span class="mono-date">Dec 2024</span>
+                </div>
+                <p class="edu-school">University of Bergamo &middot; Bergamo, Italy</p>
+                <p>Mathematical Analysis, Algebra, Statistics, Control Systems, OOP, Databases, Web Technologies.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects -->
+<section id="projects" class="section reveal">
+    <div class="section-label">04</div>
+    <h2 class="section-title">Things I've built</h2>
+
+    <div class="project-showcase">
+
+        <article class="project-featured">
+            <div class="pf-content">
+                <span class="pf-label">Featured Project</span>
+                <h3>ROUTEin</h3>
+                <div class="pf-desc">
+                    <p>Startup concept: a modular SaaS platform for field service management with AI-driven scheduling, real-time cost monitoring, and a mobile app for technicians. Addressed dramatic efficiency gaps in Italian SMEs in maintenance and rental services.</p>
+                </div>
+                <div class="pf-tags">
+                    <span>Design Thinking</span><span>Business Model Canvas</span><span>AI Scheduling</span><span>SaaS</span>
+                </div>
+            </div>
+            <div class="pf-visual">
+                <div class="pf-icon"><i class="fas fa-route"></i></div>
+            </div>
+        </article>
+
+        <article class="project-featured flip">
+            <div class="pf-visual">
+                <div class="pf-icon"><i class="fas fa-wallet"></i></div>
+            </div>
+            <div class="pf-content">
+                <span class="pf-label">Featured Project</span>
+                <h3>Spendly</h3>
+                <div class="pf-desc">
+                    <p>Full-stack expense management web app for personal and group budgets with interactive dashboards, charts, and analytics. Secure auth, REST API, responsive UI. Complete UML documentation and automated test suite.</p>
+                </div>
+                <div class="pf-tags">
+                    <span>Vue.js</span><span>Spring Boot</span><span>REST API</span><span>JUnit</span><span>MySQL</span>
+                </div>
+            </div>
+        </article>
+
+        <article class="project-featured">
+            <div class="pf-content">
+                <span class="pf-label">Course Project</span>
+                <h3>Aircraft Price Analysis</h3>
+                <div class="pf-desc">
+                    <p>Predicting aircraft prices from technical features using linear regression, Ridge, Lasso, GAM, and tree-based methods. Extensive data preprocessing with log-transforms, outlier handling, and multicollinearity checks.</p>
+                </div>
+                <div class="pf-tags">
+                    <span>Python</span><span>scikit-learn</span><span>PyGAM</span><span>statsmodels</span><span>LaTeX</span>
+                </div>
+            </div>
+            <div class="pf-visual">
+                <div class="pf-icon"><i class="fas fa-plane"></i></div>
+            </div>
+        </article>
+
+    </div>
+</section>
+
+<!-- Skills -->
+<section id="skills" class="section reveal">
+    <div class="section-label">05</div>
+    <h2 class="section-title">My toolbox</h2>
+
+    <div class="skills-mosaic">
+        <div class="skill-cell" data-category="lang">
+            <i class="fab fa-r-project"></i><span>R</span>
+        </div>
+        <div class="skill-cell" data-category="lang">
+            <i class="fab fa-python"></i><span>Python</span>
+        </div>
+        <div class="skill-cell" data-category="lang">
+            <span class="skill-text-icon">M</span><span>MATLAB</span>
+        </div>
+        <div class="skill-cell" data-category="lang">
+            <i class="fab fa-java"></i><span>Java</span>
+        </div>
+        <div class="skill-cell" data-category="lang">
+            <span class="skill-text-icon">C++</span><span>C++</span>
+        </div>
+        <div class="skill-cell" data-category="lang">
+            <i class="fas fa-database"></i><span>SQL</span>
+        </div>
+        <div class="skill-cell" data-category="lang">
+            <span class="skill-text-icon">L</span><span>LaTeX</span>
+        </div>
+        <div class="skill-cell" data-category="tool">
+            <i class="fab fa-js-square"></i><span>JavaScript</span>
+        </div>
+        <div class="skill-cell" data-category="tool">
+            <i class="fab fa-vuejs"></i><span>Vue.js</span>
+        </div>
+        <div class="skill-cell" data-category="tool">
+            <i class="fas fa-flask"></i><span>Flask</span>
+        </div>
+        <div class="skill-cell" data-category="tool">
+            <i class="fas fa-leaf"></i><span>Spring Boot</span>
+        </div>
+        <div class="skill-cell" data-category="tool">
+            <i class="fab fa-git-alt"></i><span>Git</span>
+        </div>
+        <div class="skill-cell" data-category="tool">
+            <i class="fab fa-github"></i><span>GitHub</span>
+        </div>
+        <div class="skill-cell" data-category="tool">
+            <i class="fas fa-server"></i><span>MySQL</span>
+        </div>
+        <div class="skill-cell" data-category="tool">
+            <i class="fas fa-microchip"></i><span>HPC</span>
+        </div>
+    </div>
+
+    <div class="lang-section">
+        <h3>Languages I speak</h3>
+        <div class="lang-grid">
+            <div class="lang-card">
+                <span class="lang-flag">🇮🇹</span>
+                <span class="lang-name">Italian</span>
+                <span class="lang-lvl native">Native</span>
+            </div>
+            <div class="lang-card">
+                <span class="lang-flag">🇲🇦</span>
+                <span class="lang-name">Arabic</span>
+                <span class="lang-lvl native">Native</span>
+            </div>
+            <div class="lang-card">
+                <span class="lang-flag">🇬🇧</span>
+                <span class="lang-name">English</span>
+                <span class="lang-lvl pro">Professional</span>
+            </div>
+            <div class="lang-card">
+                <span class="lang-flag">🇫🇷</span>
+                <span class="lang-name">French</span>
+                <span class="lang-lvl basic">Basic</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Activities -->
+<section id="activities" class="section reveal">
+    <div class="section-label">06</div>
+    <h2 class="section-title">Beyond the code</h2>
+    <div class="act-row">
+        <div class="act-card">
+            <div class="act-icon"><i class="fas fa-robot"></i></div>
+            <h3>Robotics Developer</h3>
+            <p class="act-meta">BergamoScienza &middot; 2019–2020</p>
+            <p>Built a domotic greenhouse controlled by Arduino. Presented during school-science events on technology and sustainability.</p>
+        </div>
+        <div class="act-card">
+            <div class="act-icon"><i class="fas fa-bullhorn"></i></div>
+            <h3>School Ambassador</h3>
+            <p class="act-meta">Open Days &middot; 2019–2020</p>
+            <p>Represented the school at open day events, explaining programs and showcasing student projects to prospective students.</p>
+        </div>
+        <div class="act-card">
+            <div class="act-icon"><i class="fas fa-globe-europe"></i></div>
+            <h3>Global Affairs</h3>
+            <p class="act-meta">Ongoing interest</p>
+            <p>Keen follower of international news, politics, and economic trends. This perspective enriches my multicultural approach to problem-solving.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="section reveal">
+    <div class="contact-inner">
+        <p class="contact-overline">07 &mdash; What's next?</p>
+        <h2>Let's connect.</h2>
+        <p class="contact-text">I'm currently looking for opportunities where I can apply machine learning and data science to solve impactful problems. Whether you have a question or just want to say hi, my inbox is always open.</p>
+        <a href="mailto:aminborqal10@gmail.com" class="btn btn-primary btn-lg">Say hello</a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-links">
+        <a href="https://github.com/aminb00" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/aminborqal" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+        <a href="mailto:aminborqal10@gmail.com"><i class="fas fa-envelope"></i></a>
+    </div>
+    <p>Designed &amp; Built by Amin Borqal &copy; 2026</p>
+</footer>
+
+<script>
+(function(){
+    var mb = document.querySelector('.menu-btn');
+    var nl = document.querySelector('.nav-links');
+    mb.addEventListener('click', function(){
+        mb.classList.toggle('open');
+        nl.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(function(a){
+        a.addEventListener('click', function(){ mb.classList.remove('open'); nl.classList.remove('open'); });
+    });
+
+    var nav = document.getElementById('nav');
+    window.addEventListener('scroll', function(){
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    var btns = document.querySelectorAll('.tab-btn');
+    var panels = document.querySelectorAll('.tab-panel');
+    var indicator = document.querySelector('.tab-indicator');
+    function setTab(i){
+        btns.forEach(function(b){ b.classList.remove('active'); });
+        panels.forEach(function(p){ p.classList.remove('active'); });
+        btns[i].classList.add('active');
+        panels[i].classList.add('active');
+        indicator.style.top = btns[i].offsetTop + 'px';
+        indicator.style.height = btns[i].offsetHeight + 'px';
+    }
+    btns.forEach(function(b, idx){
+        b.addEventListener('click', function(){ setTab(idx); });
+    });
+    setTimeout(function(){ setTab(0); }, 100);
+
+    var reveals = document.querySelectorAll('.reveal');
+    var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+            if(e.isIntersecting){ e.target.classList.add('visible'); }
+        });
+    }, { threshold: 0.12 });
+    reveals.forEach(function(r){ io.observe(r); });
+})();
+</script>
 
 </body>
 </html>
-
