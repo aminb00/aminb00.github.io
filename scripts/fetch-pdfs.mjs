@@ -12,6 +12,8 @@
 //
 // Usage: npm run fetch               every document
 //        npm run fetch -- paris-pitch only these ids
+//        npm run fetch -- --force     also redo the Drive compression
+// A PDF with no source (one you dropped in public/pdf/ yourself) is only scanned.
 
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -22,7 +24,9 @@ import { parse } from 'yaml';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const LIMIT = 20_000_000;
-const only = new Set(process.argv.slice(2));
+const args = process.argv.slice(2);
+const force = args.includes('--force');
+const only = new Set(args.filter((a) => a !== '--force'));
 
 const readData = (name) => parse(fs.readFileSync(path.join(ROOT, 'src/data', name), 'utf8')) ?? [];
 const mb = (bytes) => `${(bytes / 1e6).toFixed(1)} MB`;
@@ -106,7 +110,9 @@ for (const doc of documents()) {
       if (!fs.existsSync(original)) await download(driveUrl(doc.source.drive), original);
       console.log(`fetch: ${doc.id}: Drive original in .cache/originals/ (${mb(fs.statSync(original).size)})`);
       report.push(...scan(doc.id, original));
-      if (published) {
+      if (published && fs.existsSync(published) && !force) {
+        console.log(`fetch: ${doc.id}: public/pdf/${doc.file} exists, not recompressed (use --force)`);
+      } else if (published) {
         const tmp = path.join(ROOT, '.cache', `${doc.id}.ebook.pdf`);
         const bytes = compress(original, tmp);
         if (bytes < LIMIT) {
@@ -117,8 +123,11 @@ for (const doc of documents()) {
           console.log(`fetch: ${doc.id}: /ebook copy is ${mb(bytes)}, over 20 MB. Set pdf to { url, bytes } in presentations.yaml.`);
         }
       }
+    } else if (published && fs.existsSync(published)) {
+      console.log(`fetch: ${doc.id}: no source to download, scanning public/pdf/${doc.file}`);
+      report.push(...scan(doc.id, published));
     } else {
-      console.log(`fetch: ${doc.id}: no source, skipped`);
+      console.log(`fetch: ${doc.id}: no source and no file in public/pdf/`);
     }
   } catch (err) {
     failed = true;

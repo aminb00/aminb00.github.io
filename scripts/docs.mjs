@@ -24,7 +24,7 @@ const PUB = path.join(ROOT, 'public');
 const OUT = path.join(ROOT, 'src/data/generated/docs.json');
 const LIMIT = 20_000_000;
 const SLIDE_WIDTH = 1600;
-const POSTER_WIDTH = 640;
+const POSTER_WIDTH = { deck: 640, report: 400 }; // 2x of the 320px and 200px display widths
 const QUALITY = 80;
 
 const readData = (name) => parse(fs.readFileSync(path.join(ROOT, 'src/data', name), 'utf8')) ?? [];
@@ -37,7 +37,7 @@ const previous = exists(OUT) ? JSON.parse(fs.readFileSync(OUT, 'utf8')) : { docs
 function documents() {
   const list = [];
   for (const d of readData('presentations.yaml')) {
-    list.push({ id: d.id, kind: 'deck', file: d.pdf?.file ? `pdf/${d.pdf.file}` : undefined });
+    list.push({ id: d.id, kind: 'deck', file: d.pdf?.file ? `pdf/${d.pdf.file}` : undefined, posterSlide: d.poster ?? 1 });
   }
   for (const name of ['experience.yaml', 'education.yaml', 'projects.yaml']) {
     for (const entry of readData(name)) {
@@ -90,14 +90,31 @@ async function render(doc, src) {
   if (pngs.length !== last) throw new Error(`${doc.id}: expected ${last} pages from pdftoppm, got ${pngs.length}`);
 
   const first = await sharp(path.join(tmp, pngs[0])).metadata();
-  const poster = await sharp(path.join(tmp, pngs[0])).resize({ width: POSTER_WIDTH }).webp({ quality: QUALITY }).toFile(path.join(dir, 'poster.webp'));
   if (doc.kind === 'deck') {
     for (const [i, png] of pngs.entries()) {
       await sharp(path.join(tmp, png)).webp({ quality: QUALITY }).toFile(path.join(dir, slideName(i + 1)));
     }
+  } else {
+    await sharp(path.join(tmp, pngs[0])).resize({ width: POSTER_WIDTH.report }).webp({ quality: QUALITY }).toFile(path.join(dir, 'poster.webp'));
   }
   fs.rmSync(tmp, { recursive: true, force: true });
-  return { kind: doc.kind, pages, width: first.width, height: first.height, poster: [poster.width, poster.height] };
+  const info = { kind: doc.kind, pages, width: first.width, height: first.height };
+  return doc.kind === 'deck' ? { ...info, ...(await deckPoster(doc)) } : { ...info, poster: await size(path.join(dir, 'poster.webp')) };
+}
+
+const size = async (file) => {
+  const m = await sharp(file).metadata();
+  return [m.width, m.height];
+};
+
+/** Deck poster: slide `posterSlide` (1 unless slide 1 is only a logo), 640px wide. */
+async function deckPoster(doc) {
+  const out = path.join(PUB, 'slides', doc.id, 'poster.webp');
+  await sharp(path.join(PUB, 'slides', doc.id, slideName(doc.posterSlide)))
+    .resize({ width: POSTER_WIDTH.deck })
+    .webp({ quality: QUALITY })
+    .toFile(out);
+  return { posterSlide: doc.posterSlide, poster: await size(out) };
 }
 
 const docs = {};
@@ -116,6 +133,10 @@ for (const doc of documents()) {
     (!source || sourceHash === prev.renderedFrom || (!hasOriginal && pdf && pdf.sha256 === prev.pdf?.sha256));
   if (upToDate) {
     docs[doc.id] = { ...prev, ...(pdf && { pdf }) };
+    if (doc.kind === 'deck' && (prev.posterSlide ?? 1) !== doc.posterSlide) {
+      console.log(`docs: ${doc.id}: poster from slide ${doc.posterSlide}`);
+      Object.assign(docs[doc.id], await deckPoster(doc));
+    }
     continue;
   }
   if (!source) {
