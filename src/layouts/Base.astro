@@ -1,0 +1,60 @@
+---
+// Every page: head, skip link, header (name, affiliation line, navigation),
+// main, footer. The CSS of the active variant is inlined: one request per page.
+import common from '../styles/common.css?raw';
+import variantA from '../styles/a.css?raw';
+import variantB from '../styles/b.css?raw';
+import print from '../styles/print.css?raw';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { B_FONT, VARIANT } from '../lib/variant';
+
+export type Page = 'home' | 'experience' | 'projects' | 'presentations' | 'cv';
+
+interface Props {
+  title: string;
+  description: string;
+  page: Page;
+  /** Replaces the affiliation line under the name (Home uses the role line). */
+  line?: string;
+}
+
+const { title, description, page, line } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+
+// Variant B font: Courier Prime (default) or IBM Plex Mono, both OFL, self-hosted.
+const MONO = {
+  courier: 'courier-prime-latin',
+  plex: 'ibm-plex-mono-latin',
+}[B_FONT];
+const faces = ['400 normal', '700 normal', '400 italic']
+  .map((face) => {
+    const [weight, style] = face.split(' ');
+    return `@font-face{font-family:"Plain Mono";font-style:${style};font-weight:${weight};font-display:optional;src:url("/fonts/${MONO}-${weight}-${style}.woff2") format("woff2")}`;
+  })
+  .join('');
+
+const minify = (css: string) => css.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s+/g, ' ').trim();
+const css = minify(VARIANT === 'b' ? faces + common + variantB + print : common + variantA + print);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{title}</title>
+    <meta name="description" content={description}>
+    <link rel="canonical" href={canonical}>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    {VARIANT === 'b' && <link rel="preload" href={`/fonts/${MONO}-400-normal.woff2`} as="font" type="font/woff2" crossorigin>}
+    <style is:inline set:html={css}></style>
+  </head>
+  <body>
+    <a class="skip" href="#content">Skip to content</a>
+    <SiteHeader page={page} line={line} />
+    <main id="content">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

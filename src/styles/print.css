@@ -1,0 +1,13 @@
+/* Printing gives a clean black-on-white document. */
+@media print {
+  body { margin: 0; max-width: none; font-size: 11pt; }
+  a:link, a:visited { color: #000; }
+  nav, .skip, button, .viewer, .deck img, .copy-status { display: none !important; }
+  a[href^="http"]::after {
+    content: " <" attr(href) ">";
+    font-size: 0.85em;
+    word-break: break-all;
+  }
+  h2, h3 { break-after: avoid; }
+  li { break-inside: avoid; }
+}

@@ -1,0 +1,22 @@
+/* Variant B, "Plain text": one monospace font (self-hosted, @font-face in
+   Base.astro), a column of about 72 characters, section titles in capitals,
+   sections separated by plain rules. */
+
+:root {
+  --body-font: "Plain Mono", "Courier New", Courier, monospace;
+  --mono-font: var(--body-font);
+  --size: 16px;
+  --leading: 1.5;
+  --measure: 72ch;
+}
+
+h1 { font-size: 1.5em; margin: 0.67em 0 0.25em; }
+h2 { font-size: 1em; text-transform: uppercase; margin: 1.5em 0 1em; }
+h3 { font-size: 1em; margin: 1.5em 0 0.25em; }
+
+hr {
+  height: 0;
+  margin: 1.5em 0;
+  border: 0;
+  border-top: 1px solid #000;
+}
