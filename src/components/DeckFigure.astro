@@ -1,0 +1,71 @@
+---
+// A deck inside an entry: slide-1 poster (a link to the PDF, so it works
+// without JS), a caption, and the inline viewer that the script opens in the
+// poster's place. `context` "presentations" leaves out the link to the
+// Presentations page (the figure is already there).
+import type { Deck } from '../lib/site';
+import { getSite } from '../lib/site';
+import { fmtBytes, fmtMonth } from '../lib/format';
+
+interface Props {
+  deck: Deck;
+  context: 'home' | 'entry' | 'presentations';
+}
+
+const { deck, context } = Astro.props;
+const site = await getSite();
+const info = site.doc(deck.id);
+const pdf = site.deckPdf(deck);
+const size = fmtBytes(pdf.bytes);
+const { title, label, event, place, date, datesText } = deck.data;
+const base = `/slides/${deck.id}/`;
+const viewerId = `viewer-${deck.id}`;
+---
+<figure class="deck" data-deck={deck.id} data-pages={info.pages} data-base={base} data-title={title}>
+  <a class="poster-link" href={pdf.href}>
+    <img
+      class="poster"
+      src={`${base}poster.webp`}
+      width={info.poster[0] / 2}
+      height={info.poster[1] / 2}
+      alt={`First slide of ${title}`}
+      loading="lazy"
+      decoding="async"
+    >
+  </a>
+  <div class="viewer" id={viewerId} role="region" aria-label={`Slides: ${title}`} tabindex="-1" hidden>
+    <p class="controls">
+      <button type="button" data-prev>&lt; prev</button>
+      {' '}<span class="count" aria-hidden="true"><span data-n>1</span> / {info.pages}</span>{' '}
+      <button type="button" data-next>next &gt;</button>
+      {' '}<button type="button" data-fs hidden>Full screen</button>
+      {' '}<span class="nb">[<a href={pdf.href}>PDF, {size}</a>]</span>
+    </p>
+    <img
+      class="slide"
+      src={`${base}001.webp`}
+      width={info.width}
+      height={info.height}
+      alt={`Slide 1 of ${title}`}
+      loading="lazy"
+      decoding="async"
+      draggable="false"
+      data-slide
+    >
+    <p class="vh" aria-live="polite" data-live></p>
+  </div>
+  <figcaption>
+    {context !== 'presentations' && (
+      <Fragment>
+        Slides: <a href={site.resolve(deck.id, `deck ${deck.id}`)}>{label ?? title}</a>, {event}, {place},{' '}
+        {datesText ?? fmtMonth(date)}.{' '}
+      </Fragment>
+    )}
+    <button type="button" data-toggle aria-expanded="false" aria-controls={viewerId} hidden>View slides</button>
+    {' '}<span class="nb">[<a href={pdf.href}>PDF, {size}</a>]</span>
+  </figcaption>
+</figure>
+<script>
+  import { initViewers } from '../scripts/viewer';
+  initViewers();
+</script>

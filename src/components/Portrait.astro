@@ -1,0 +1,12 @@
+---
+// The portrait (WebP made by scripts/docs.mjs from public/img/portrait.jpg),
+// or a plain gray box with "photo" until that file exists.
+import { getSite } from '../lib/site';
+
+const { portrait, profile } = await getSite();
+---
+{portrait ? (
+  <img class="portrait" src={portrait.src} width={portrait.width} height={portrait.height} alt={profile.name}>
+) : (
+  <div class="portrait placeholder" aria-hidden="true">photo</div>
+)}

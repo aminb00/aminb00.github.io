@@ -1,0 +1,25 @@
+---
+// The address never appears whole in the HTML: only "user [at] domain [dot] com".
+// The script turns it into a mailto link; with `copy`, it also shows a native
+// "Copy email" button that announces "Copied".
+import { getSite } from '../lib/site';
+
+interface Props {
+  copy?: boolean;
+}
+
+const { copy = false } = Astro.props;
+const { profile } = await getSite();
+const { user, domain } = profile.email;
+const fallback = `${user} [at] ${domain.split('.').join(' [dot] ')}`;
+---
+<span data-email>{fallback}</span>{copy && (
+  <Fragment>
+    {' '}<button type="button" data-copy-email hidden>Copy email</button>
+    {' '}<span class="copy-status" data-copy-status aria-live="polite"></span>
+  </Fragment>
+)}
+<script>
+  import { initEmail } from '../scripts/email';
+  initEmail();
+</script>

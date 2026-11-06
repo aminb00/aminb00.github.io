@@ -1,0 +1,37 @@
+---
+// Home, Selected work: one line per entry plus [details] [slides] [code].
+// Decks listed in profile.homeDecks show their poster and viewer instead of
+// a [slides] link.
+import { getSite } from '../lib/site';
+import DeckFigure from './DeckFigure.astro';
+
+const site = await getSite();
+const { selectedWork, homeDecks } = site.profile;
+---
+<ul>
+  {selectedWork.map((id) => {
+    const entry = site.entry(id);
+    const where = `selected work ${id}`;
+    const decks = site.decksFor(id);
+    const inline = decks.filter((d) => homeDecks.includes(d.id));
+    const linked = decks.filter((d) => !homeDecks.includes(d.id));
+    const code = entry.data.material.find((m) => m.type === 'code');
+    return (
+      <li>
+        <Fragment set:html={site.text(entry.data.oneLine ?? entry.id, where)} />
+        {' '}<span class="nb">[<a href={site.resolve(id, where)}>details</a>]</span>
+        {linked.map((d) => (
+          <Fragment>
+            {' '}<span class="nb">[<a href={site.resolve(d.id, where)}>slides</a>]</span>
+          </Fragment>
+        ))}
+        {code && code.type === 'code' && (
+          <Fragment>
+            {' '}<span class="nb">[<a href={code.url}>code</a>]</span>
+          </Fragment>
+        )}
+        {inline.map((d) => <DeckFigure deck={d} context="home" />)}
+      </li>
+    );
+  })}
+</ul>

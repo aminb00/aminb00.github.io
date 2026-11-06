@@ -1,0 +1,14 @@
+---
+// Rule, address (name and email), "Last modified" in the format of the Unix
+// `date` command, Europe/Rome, written at build time.
+import Email from './Email.astro';
+import { getSite } from '../lib/site';
+import { isoDate, unixDate } from '../lib/format';
+
+const { profile } = await getSite();
+---
+<footer>
+  <hr>
+  <address>{profile.name}, <Email /></address>
+  <p>Last modified: <time class="unix" datetime={isoDate()}>{unixDate()}</time></p>
+</footer>
