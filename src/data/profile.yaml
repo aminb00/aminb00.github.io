@@ -30,7 +30,7 @@
   # Slugs from experience.yaml or projects.yaml, shown on Home in this order.
   selectedWork: [routein, antwerp-internship, rpca]
   # Decks shown on Home with their poster and viewer (the others get a [slides] link).
-  homeDecks: [paris-pitch]
+  homeDecks: [paris-pitch, antwerp-slides, rpca-slides]
   # Not written yet: the Off-duty section stays hidden.
   offDuty: TODO
   skills:
