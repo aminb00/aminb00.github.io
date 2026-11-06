@@ -1,9 +1,10 @@
-# Decks: one entry and one PDF in public/pdf/ per deck. `npm run dev` or
+# Decks: one entry here and one PDF in public/pdf/ per deck. `npm run dev` or
 # `npm run build` turns the PDF into slide images.
 # related: the experience or project slugs that show this deck. That one field
 # makes both links: the entry shows the deck, the deck links back to the entry.
 # pdf: { file: name.pdf } for a file in public/pdf/, or { url, bytes } for a PDF
 # hosted elsewhere (the Drive original when no copy fits under 20 MB).
+# date: YYYY-MM, or YYYY when the month is not known. datesText overrides the display.
 
 - id: paris-pitch
   title: Operational Intelligence for Field Service
@@ -14,3 +15,47 @@
   pdf: { file: paris-pitch.pdf }
   source: { drive: 1sRtdW3rOTNv9IpU1fq_oBxjclYZO4hG0 }
   related: [routein]
+
+- id: antwerp-slides
+  # Title from slide 1. The file came from you (ResearchProjectPresent_Uantwerpen.pdf).
+  title: Exploring Fragmentation Competition in Proteomics Data to Decode Chimeric Spectra
+  event: Final presentation of the research internship, ADReM Data Lab
+  place: Universiteit Antwerpen
+  date: 2026-01
+  pdf: { file: antwerp-slides.pdf }
+  # Slide 1 is only a logo: slide 2 is the cover.
+  poster: 2
+  related: [antwerp-internship]
+
+- id: convex-slides
+  title: Convex Optimization for Machine Learning
+  event: Course presentation, Optimization
+  place: University of Bergamo
+  date: 2026-03
+  pdf: { file: convex-slides.pdf }
+  source: { github: { repo: aminb00/Convex-Optimization-for-Machine-Learning, path: Presentation/Presentation.pdf } }
+  # Slide 1 is only a logo: slide 2 is the cover.
+  poster: 2
+  related: [convex-optimization]
+
+- id: rpca-slides
+  title: Adaptive Fault Detection under Process Drift using Recursive PCA
+  event: Course presentation, Adaptive Learning, Estimation and Supervision of Dynamical Systems
+  place: University of Bergamo
+  # TODO: month of 2026.
+  date: 2026
+  pdf: { file: rpca-slides.pdf }
+  source: { github: { repo: aminb00/Adaptive-Fault-Detection-under-Process-Drift-using-Recursive-PCA, path: Presentation.pdf } }
+  # Slide 1 is only a logo: slide 2 is the cover.
+  poster: 2
+  related: [rpca]
+
+- id: aircraft-slides
+  title: Aircraft Price Analysis
+  event: Course presentation, Statistical Learning
+  place: University of Bergamo
+  date: 2024
+  datesText: A.Y. 2024/25
+  pdf: { file: aircraft-slides.pdf }
+  source: { github: { repo: aminb00/StatisticalLearningProject, path: StatisticalLearningProject Presentation.pdf } }
+  related: [aircraft-price]

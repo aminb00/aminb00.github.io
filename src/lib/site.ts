@@ -20,7 +20,22 @@ export interface DocInfo {
   width: number;
   height: number;
   poster: [number, number];
+  posterSlide?: number;
 }
+
+/** Project tags, in the order of the filter line. */
+export const TAGS = {
+  ml: 'Machine Learning',
+  control: 'Control & SysID',
+  ir: 'IR & LLM',
+  geo: 'Geospatial',
+  software: 'Software',
+} as const;
+export type Tag = keyof typeof TAGS;
+
+/** GitHub page of a file in a repo (the "source on GitHub" link). */
+export const githubBlob = (s: { repo: string; path: string; branch: string }) =>
+  `https://github.com/${s.repo}/blob/${s.branch}/${s.path.split('/').map(encodeURIComponent).join('/')}`;
 
 interface Manifest {
   docs: Record<string, DocInfo>;
@@ -92,7 +107,8 @@ async function load() {
     if (prev) throw new Error(`Duplicate slug "${id}" (${prev.kind} and ${kind})`);
     registry.set(id, { url, title, kind });
   };
-  for (const e of experience) add(e.id, `/experience/#${e.id}`, e.data.role, 'experience');
+  // Experience entries read as "role, organization" in links ("Related: ...").
+  for (const e of experience) add(e.id, `/experience/#${e.id}`, `${e.data.role}, ${e.data.org.split(',')[0]}`, 'experience');
   for (const e of education) {
     add(e.id, `/experience/#${e.id}`, e.data.degree, 'education');
     const thesis = e.data.thesis;
@@ -105,6 +121,12 @@ async function load() {
     const hit = registry.get(id);
     if (!hit) throw new Error(`Unknown slug "${id}" in ${where}`);
     return hit.url;
+  };
+  /** Display name of a slug, for links like "Related: ...". */
+  const label = (id: string) => {
+    const hit = registry.get(id);
+    if (!hit) throw new Error(`Unknown slug "${id}"`);
+    return hit.title;
   };
   /** Text with marks → HTML, links resolved through the registry. */
   const text = (src: string, where: string) => inline(src, (id) => resolve(id, where));
@@ -120,7 +142,7 @@ async function load() {
   }
   for (const e of experience) check(`experience ${e.id}`, ...e.data.bullets, ...(e.data.details ?? []), e.data.oneLine);
   for (const e of education) {
-    check(`education ${e.id}`, ...e.data.subjects, e.data.focus, e.data.thesis?.topic);
+    check(`education ${e.id}`, ...e.data.lines, ...e.data.subjects, e.data.thesis?.topic);
     if (e.data.thesis?.project) resolve(e.data.thesis.project, `education ${e.id}.thesis.project`);
   }
   for (const p of projects) {
@@ -188,6 +210,7 @@ async function load() {
     news,
     registry,
     resolve,
+    label,
     text,
     doc,
     deckPdf,

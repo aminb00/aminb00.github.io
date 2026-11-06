@@ -7,6 +7,8 @@ import { z } from 'astro/zod';
 
 const slug = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'slug: lowercase letters, digits, single hyphens');
 const month = z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/, 'month: YYYY-MM');
+/** "2026-03", or "2026" when the month is not known (sorts after the dated months of that year). */
+const monthOrYear = z.coerce.string().regex(/^\d{4}(?:-(0[1-9]|1[0-2]))?$/, 'date: YYYY-MM or YYYY');
 
 /** An optional field that may also hold "TODO". Both mean: missing, leave it off the page. */
 const maybe = <T extends z.ZodType>(schema: T) =>
@@ -100,7 +102,9 @@ const education = defineCollection({
         project: slug.optional(),
       })
       .optional(),
-    focus: z.string().optional(),
+    /** Visible bullets under the thesis ("Focus: ..."). */
+    lines: z.array(z.string()).default([]),
+    /** "Key subjects", under "More". */
     subjects: z.array(z.string()).default([]),
     material: z.array(material).default([]),
   }),
@@ -130,13 +134,15 @@ const presentations = defineCollection({
     label: z.string().optional(),
     event: z.string(),
     place: z.string(),
-    date: month,
+    date: monthOrYear,
     datesText: z.string().optional(),
     pdf: z.union([
       z.object({ file: z.string() }),
       z.object({ url: z.url(), bytes: z.number().int().positive() }),
     ]),
     source: z.union([z.object({ github }), z.object({ drive: z.string() })]).optional(),
+    /** Slide used as the poster: 1, or 2 when slide 1 is only a logo. */
+    poster: z.number().int().positive().default(1),
     related: z.array(slug).min(1),
   }),
 });

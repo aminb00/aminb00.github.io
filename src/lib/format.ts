@@ -18,6 +18,12 @@ export function fmtMonth(month: string): string {
   return `${MONTHS[index]} ${year}`;
 }
 
+/** A deck date: "2026-03" → "Mar 2026", "2026" → "2026"; datesText wins. */
+export function fmtWhen(date: string, datesText?: string): string {
+  if (datesText) return datesText;
+  return /^\d{4}$/.test(date) ? date : fmtMonth(date);
+}
+
 /** "2024-12" → "December 2024" */
 export function fmtMonthLong(month: string): string {
   const { year, index } = split(month);

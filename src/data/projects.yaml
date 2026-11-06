@@ -1,6 +1,10 @@
 # Projects page, in this order.
 # context: parts joined with " · ". A part starting with "TODO" is left out.
 # Text marks: **bold**, `mono` (numbers in results), [label](#slug).
+# summaryVerbatim / methodVerbatim: your exact words, never edited.
+# Material pdf: the file goes in public/pdf/; `poster: true` shows its first
+# page (one poster per project: a deck if there is one, else the main report).
+# Decks are in presentations.yaml (related: <project id>).
 
 - id: rpca
   title: Adaptive Fault Detection under Process Drift using Recursive PCA
@@ -17,7 +21,133 @@
   material:
     - type: code
       url: https://github.com/aminb00/Adaptive-Fault-Detection-under-Process-Drift-using-Recursive-PCA
+    - type: pdf
+      id: rpca-livescript-rpca
+      label: "`RPCA` live script"
+      file: rpca-livescript-rpca.pdf
+      source: { github: { repo: aminb00/Adaptive-Fault-Detection-under-Process-Drift-using-Recursive-PCA, path: "LIVESCRIPTS-HTML&PDF/RPCA.pdf" } }
+    - type: pdf
+      id: rpca-livescript-pca-batch
+      label: "`PCA_batch` live script"
+      file: rpca-livescript-pca-batch.pdf
+      source: { github: { repo: aminb00/Adaptive-Fault-Detection-under-Process-Drift-using-Recursive-PCA, path: "LIVESCRIPTS-HTML&PDF/PCA_batch.pdf" } }
+    - type: pdf
+      id: rpca-livescript-data-preparation
+      label: "`DataPreparation` live script"
+      file: rpca-livescript-data-preparation.pdf
+      source: { github: { repo: aminb00/Adaptive-Fault-Detection-under-Process-Drift-using-Recursive-PCA, path: "LIVESCRIPTS-HTML&PDF/DataPreparation.pdf" } }
   oneLine: "**Adaptive Fault Detection under Process Drift using Recursive PCA**, course project, University of Bergamo, 2026: false-alarm rate from `32.6%` to near-nominal, step-fault detection above `81%`."
+
+- id: rag
+  title: RAG System for University Knowledge Access
+  context:
+    - Team course project, Information Retrieval
+    - Universiteit Antwerpen
+    - "2025"
+    - Python
+  summary: "Team project building a RAG system that answers questions about the UAntwerp Master's program, retrieving relevant passages and generating answers with GPT-4o."
+  summaryVerbatim: true
+  result: "Recall@5 `0.80 ± 0.28` and MRR `1.00` on a hand-labelled set (`n = 19`); optional agentic workflow `0.73 ± 0.30`; LLM-as-judge for faithfulness and relevance."
+  method:
+    - "Data: 588 passages from course and program pages."
+    - "Chunking: about 250 tokens with 15% overlap, cut at sentence and section boundaries."
+    - "Embeddings: all-MiniLM-L6-v2 (384-dim, local); all-mpnet-base-v2 and bge-small-en-v1.5 also tested."
+    - "Index: FAISS IndexFlatIP (cosine on L2-normalized vectors)."
+    - "Retrieval: top-5 with 3×k candidate expansion, rerank, and a boost on course code and section."
+    - "Generation: GPT-4o (temperature 0.1, prompt restricted to the retrieved context)."
+    - "Optional LangGraph workflow: query tagging, multi-query expansion, RRF fusion, MMR diversification."
+    - Error analysis on retrieval failures and hallucinations.
+  tags: [ir]
+  material:
+    - type: code
+      label: code (my fork of the team repo)
+      url: https://github.com/aminb00/RAG-System-for-University-Knowledge-Access
+    - type: pdf
+      id: rag-report
+      label: report
+      file: rag-report.pdf
+      # Page 1 lists the group members with their student numbers: no poster
+      # until you confirm.
+      poster: false
+      source: { github: { repo: aminb00/RAG-System-for-University-Knowledge-Access, path: report.pdf } }
+    - type: link
+      label: REPORT.md
+      url: https://github.com/aminb00/RAG-System-for-University-Knowledge-Access/blob/main/REPORT.md
+    - type: todo
+      note: slides, if any
+
+- id: ann-benchmark
+  title: Multi-index Retrieval Benchmark on Wikipedia Movie Plots
+  # TODO: team project? The repo is a fork of pegghe/Information-Retrieval-Assignment-2.
+  context:
+    - Course project, Information Retrieval
+    - Universiteit Antwerpen
+    - "2025"
+    - Python
+  summary: "benchmark of approximate nearest neighbour search on Word2Vec embeddings of movie plots: vector quantization (VQ), product quantization (PQ), LSH (random hyperplanes + banding) and FAISS (IVF, IVFPQ, LSH)."
+  result: "VQ `97.6%` Recall@10 at `1.18 ms`; FAISS-IVF `98.8%` at `83.5 µs`; LSH `100%` at `11.33 ms`; PQ `33%` at `1.74 ms`."
+  tags: [ir]
+  material:
+    - type: code
+      url: https://github.com/aminb00/WikipediaMovie-Embedding-Retrieval-MultiIndexingBenchmark
+    - type: pdf
+      id: ann-benchmark-report
+      label: 21-page LaTeX report
+      file: ann-benchmark-report.pdf
+      # Page 1 lists the group members with their student numbers: no poster
+      # until you confirm.
+      poster: false
+      source: { github: { repo: aminb00/WikipediaMovie-Embedding-Retrieval-MultiIndexingBenchmark, path: Documentation/main.pdf } }
+    - type: todo
+      note: slides, if any
+
+- id: resnet-transformer
+  title: ResNet-Transformer for Waste Classification
+  context:
+    - Course project, Deep Learning
+    - University of Bergamo
+    # Year from the report itself (dated 12 December 2025).
+    - "2025"
+    - PyTorch
+  summary: "hybrid classifier with ResNet-18 (ImageNet weights, last two layers removed) followed by a Transformer encoder (CLS token, positional embeddings, multi-head attention), on 9 waste categories."
+  result: "best validation accuracy `80.15%` (RandomCrop, HFlip and ColorJitter augmentation + unfrozen layer4); `77-80%` across configurations."
+  method: "Adam (lr 1e-4), cross-entropy, early stopping (patience 5), 80/20 split (seed 42)."
+  tags: [ml]
+  material:
+    - type: code
+      url: https://github.com/aminb00/ResNet-Transformer-for-Waste-Classification
+    - type: pdf
+      id: resnet-transformer-report
+      label: report
+      file: resnet-transformer-report.pdf
+      poster: true
+      source: { github: { repo: aminb00/ResNet-Transformer-for-Waste-Classification, path: DLassignment2_AminBorqal.pdf } }
+
+- id: istanbul-gee
+  title: Land Reclamation at Istanbul Airport with Google Earth Engine
+  context:
+    - Course project, Geographical Information Systems
+    - Universiteit Antwerpen
+    - 2025/26
+    - Google Earth Engine (JavaScript)
+  summary: how much land was gained from the sea to build Istanbul Airport, compared with 2012.
+  result: "water surface from `8.73 km²` (2012) to `6.32 km²` (2024): about `2.41 km²` converted from water to land."
+  method:
+    - "Area: 6 km buffer around the airport on the Black Sea coast."
+    - "Imagery: Landsat 5 TM (2011-2012, before construction) and Landsat 9 OLI-2 (2023-2024), Collection 2 Level 2, cloud cover below 50%."
+    - "Method: water classified with NDWI > 0; change computed as the difference between the water masks; area measured with a reduceRegion sum at 30 m."
+  tags: [geo]
+  material:
+    - type: code
+      url: https://github.com/aminb00/IstanbulAirportLandAnalysis
+    - type: pdf
+      id: istanbul-gee-report
+      label: report
+      file: istanbul-gee-report.pdf
+      poster: true
+      source: { github: { repo: aminb00/IstanbulAirportLandAnalysis, path: IstanbulAirportReport.pdf } }
+    - type: todo
+      note: slides, if any
 
 - id: iedd
   title: Italian Emission Daily Dataset (B.Sc. thesis)
@@ -37,3 +167,70 @@
       url: https://aminb00.github.io/Italian-Emissions-Daily-Dataset/
     - type: todo
       note: thesis PDF and defense slides (Dec 2024)
+
+- id: convex-optimization
+  title: Convex Optimization for Machine Learning (MAGIC Gamma Telescope)
+  context:
+    - Course project, Optimization
+    - University of Bergamo
+    - March 2026
+    - Python (NumPy, scikit-learn, matplotlib)
+  summary: "convergence analysis of first- and second-order methods for binary classification with logistic regression: gradient descent under different assumptions (naive, bounded, smooth, strongly convex), SGD, AdaGrad, Adam and Newton, compared with the theoretical bounds."
+  # No result given: the Result line stays hidden.
+  result: TODO
+  tags: [ml]
+  material:
+    - type: code
+      url: https://github.com/aminb00/Convex-Optimization-for-Machine-Learning
+
+- id: aircraft-price
+  title: Aircraft Price Analysis
+  context:
+    - Course project with Filippo Bolis, Statistical Learning
+    - University of Bergamo
+    - A.Y. 2024/25
+    - Python
+  summary: "predicting aircraft prices from technical features (Kaggle dataset, 497 observations, 14 variables, prices from $50K to $15M), with a log transform, linear, Ridge, LASSO, GAM and tree-based models, and bootstrap inference."
+  result: "best model: LASSO."
+  tags: [ml]
+  material:
+    - type: code
+      url: https://github.com/aminb00/StatisticalLearningProject
+    - type: pdf
+      id: aircraft-price-report
+      label: report
+      file: aircraft-price-report.pdf
+      source: { github: { repo: aminb00/StatisticalLearningProject, path: StatisticalLearningProject Bolis-Borqal.pdf } }
+
+- id: spendly
+  title: Spendly, Expense Management App
+  context:
+    - Team course project, Design, Algorithms and Computability
+    - University of Bergamo
+    - "2025"
+    - Vue.js, Spring Boot (Java)
+  summary: Team project building a modern web app for personal and group expense management with interactive dashboards and analytics, following an Agile Model-Driven Development (AMDD) approach.
+  summaryVerbatim: true
+  method: "Frontend in Vue.js and backend in Spring Boot (Java) with REST API, following the MVC pattern and clearly documented request flows. Performed requirements analysis and designed UML diagrams (Use Case, Class, Component, Deployment); ensured code quality with automated JUnit tests and static code analysis."
+  methodVerbatim: true
+  tags: [software]
+  material:
+    - type: code
+      url: https://github.com/aminb00/Spendly-Expense-Management-Full-Stack-Application
+    - type: pdf
+      id: spendly-documentation
+      label: documentation, in Italian
+      file: spendly-documentation.pdf
+      poster: true
+      hreflang: it
+      source: { github: { repo: aminb00/Spendly-Expense-Management-Full-Stack-Application, path: Documentazione/Documentazione.pdf } }
+    - type: todo
+      note: slides, if any
+
+# Hidden until you confirm it (draft: not built).
+- id: fhdgm-argo
+  title: functional Hidden Dynamic Geostatistical Model on Argo float temperature profiles in the Mediterranean
+  context: [TODO]
+  summary: in progress.
+  tags: [geo]
+  draft: true
