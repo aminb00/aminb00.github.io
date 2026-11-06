@@ -1,0 +1,53 @@
+---
+// CV: the PDF (once you add public/cv/Amin_Borqal_CV.pdf) with its first page
+// and last-updated date, the plain-text version, skills and languages.
+import Base from '../layouts/Base.astro';
+import { getSite } from '../lib/site';
+import { fmtBytes, fmtDay } from '../lib/format';
+
+const { profile, cv } = await getSite();
+---
+<Base
+  title="CV - Amin Borqal"
+  description="CV of Amin Borqal as PDF and plain text, with skills and languages."
+  page="cv"
+>
+  <h2>CV</h2>
+  {cv && <p>Last updated: {fmtDay(cv.updated)}.</p>}
+  <p>
+    {cv && (
+      <Fragment>
+        <span class="nb">[<a href={cv.href}>PDF, {fmtBytes(cv.bytes)}</a>]</span>{' '}
+      </Fragment>
+    )}
+    <span class="nb">[<a href="/cv.txt">plain text</a>]</span>
+  </p>
+  {cv?.poster && (
+    <figure class="doc">
+      <a href={cv.href}>
+        <img
+          class="poster page"
+          src="/slides/cv/poster.webp"
+          width={cv.poster.poster[0] / 2}
+          height={cv.poster.poster[1] / 2}
+          alt={`First page of the CV of ${profile.name}`}
+          loading="lazy"
+          decoding="async"
+        >
+      </a>
+    </figure>
+  )}
+  <h3>Skills</h3>
+  <dl>
+    {profile.skills.map((group) => (
+      <Fragment>
+        <dt>{group.group}</dt>
+        <dd>{group.items.join(', ')}</dd>
+      </Fragment>
+    ))}
+  </dl>
+  <h3>Languages</h3>
+  <ul>
+    {profile.languages.map((l) => <li>{l.name} ({l.level})</li>)}
+  </ul>
+</Base>

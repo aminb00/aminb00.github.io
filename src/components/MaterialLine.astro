@@ -1,9 +1,10 @@
 ---
 // "Material:" followed by bracketed links. Every PDF shows its size, and a PDF
-// copied from GitHub links back to its source file there. Screen readers hear
-// which entry a link belongs to ("code for ...").
+// copied from GitHub keeps a "source on GitHub" link. PDFs shown with a poster
+// (ReportFigure) and decks (DeckFigure) are not repeated here. Screen readers
+// hear which entry a link belongs to ("code for ...").
 import type { CollectionEntry } from 'astro:content';
-import { getSite } from '../lib/site';
+import { getSite, githubBlob } from '../lib/site';
 import { fmtBytes } from '../lib/format';
 
 type Material = CollectionEntry<'projects'>['data']['material'][number];
@@ -16,9 +17,7 @@ interface Props {
 
 const { items, name } = Astro.props;
 const site = await getSite();
-const shown = items.filter((m) => m.type !== 'todo');
-const blob = (s: { repo: string; path: string; branch: string }) =>
-  `https://github.com/${s.repo}/blob/${s.branch}/${s.path.split('/').map(encodeURIComponent).join('/')}`;
+const shown = items.filter((m) => m.type !== 'todo' && !(m.type === 'pdf' && m.poster));
 ---
 {shown.length > 0 && (
   <p class="material">
@@ -27,7 +26,7 @@ const blob = (s: { repo: string; path: string; branch: string }) =>
       if (m.type === 'code' || m.type === 'link') {
         return (
           <Fragment>
-            {' '}<span class="nb">[<a href={m.url} hreflang={'hreflang' in m ? m.hreflang : undefined}>{m.label}<span class="vh"> for {name}</span></a>]</span>
+            {' '}<span class="nb">[<a href={m.url} hreflang={m.type === 'link' ? m.hreflang : undefined}><Fragment set:html={site.text(m.label, name)} /><span class="vh"> for {name}</span></a>]</span>
           </Fragment>
         );
       }
@@ -35,10 +34,10 @@ const blob = (s: { repo: string; path: string; branch: string }) =>
       const pdf = site.materialPdf(m.file, name);
       return (
         <Fragment>
-          {' '}<span class="nb">[<a href={pdf.href} hreflang={m.hreflang}>{m.label} (PDF, {fmtBytes(pdf.bytes)})<span class="vh"> for {name}</span></a>]</span>
+          {' '}<span class="nb">[<a href={pdf.href} hreflang={m.hreflang}><Fragment set:html={site.text(m.label, name)} /> (PDF, {fmtBytes(pdf.bytes)})<span class="vh"> for {name}</span></a>]</span>
           {m.source && (
             <Fragment>
-              {' '}(source: <a href={blob(m.source.github)}><code>{m.source.github.path.split('/').pop()}</code></a> on GitHub)
+              {' '}<span class="nb">[<a href={githubBlob(m.source.github)}>source on GitHub</a>]</span>
             </Fragment>
           )}
         </Fragment>

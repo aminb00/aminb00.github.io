@@ -1,11 +1,11 @@
 ---
-// A deck inside an entry: slide-1 poster (a link to the PDF, so it works
-// without JS), a caption, and the inline viewer that the script opens in the
-// poster's place. `context` "presentations" leaves out the link to the
-// Presentations page (the figure is already there).
+// A deck: poster (a link to the PDF, so it works without JS), caption, and the
+// inline viewer that the script opens in the poster's place. On the
+// Presentations page (`context` "presentations") the caption leaves out the
+// link to that page, since the deck is already there.
 import type { Deck } from '../lib/site';
-import { getSite } from '../lib/site';
-import { fmtBytes, fmtMonth } from '../lib/format';
+import { getSite, githubBlob } from '../lib/site';
+import { fmtBytes, fmtWhen } from '../lib/format';
 
 interface Props {
   deck: Deck;
@@ -17,9 +17,11 @@ const site = await getSite();
 const info = site.doc(deck.id);
 const pdf = site.deckPdf(deck);
 const size = fmtBytes(pdf.bytes);
-const { title, label, event, place, date, datesText } = deck.data;
+const { title, label, event, place, date, datesText, source } = deck.data;
+const posterSlide = info.posterSlide ?? 1;
 const base = `/slides/${deck.id}/`;
 const viewerId = `viewer-${deck.id}`;
+const sourceUrl = source && 'github' in source ? githubBlob(source.github) : undefined;
 ---
 <figure class="deck" data-deck={deck.id} data-pages={info.pages} data-base={base} data-title={title}>
   <a class="poster-link" href={pdf.href}>
@@ -28,7 +30,7 @@ const viewerId = `viewer-${deck.id}`;
       src={`${base}poster.webp`}
       width={info.poster[0] / 2}
       height={info.poster[1] / 2}
-      alt={`First slide of ${title}`}
+      alt={posterSlide === 1 ? `First slide of ${title}` : `Slide ${posterSlide} of ${title}`}
       loading="lazy"
       decoding="async"
     >
@@ -58,11 +60,16 @@ const viewerId = `viewer-${deck.id}`;
     {context !== 'presentations' && (
       <Fragment>
         Slides: <a href={site.resolve(deck.id, `deck ${deck.id}`)}>{label ?? title}</a>, {event}, {place},{' '}
-        {datesText ?? fmtMonth(date)}.{' '}
+        {fmtWhen(date, datesText)}.{' '}
       </Fragment>
     )}
     <button type="button" data-toggle aria-expanded="false" aria-controls={viewerId} hidden>View slides</button>
     {' '}<span class="nb">[<a href={pdf.href}>PDF, {size}</a>]</span>
+    {sourceUrl && (
+      <Fragment>
+        {' '}<span class="nb">[<a href={sourceUrl}>source on GitHub</a>]</span>
+      </Fragment>
+    )}
   </figcaption>
 </figure>
 <script>

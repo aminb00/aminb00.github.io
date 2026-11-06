@@ -1,0 +1,48 @@
+---
+// One project: <h3> (anchor = slug), context line, summary, result (numbers in
+// monospace), tags, material, poster (deck, else main report), method under
+// "Method". data-tags is read by the filter.
+import type { Project } from '../lib/site';
+import { TAGS, getSite } from '../lib/site';
+import { capitalize } from '../lib/text';
+import DeckFigure from './DeckFigure.astro';
+import MaterialLine from './MaterialLine.astro';
+import ReportFigure from './ReportFigure.astro';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const site = await getSite();
+const p = project.data;
+const where = `projects ${project.id}`;
+const context = p.context.filter((part) => !/^TODO/i.test(part)).join(' · ');
+const decks = site.decksFor(project.id);
+const reports = p.material.filter((m) => m.type === 'pdf' && m.poster);
+const method = p.method === undefined ? [] : [p.method].flat();
+const verbatim = (yes: boolean) => (yes ? '' : undefined);
+const prose = (text: string, keep: boolean) => site.text(keep ? text : capitalize(text), where);
+---
+<div class="entry project" data-tags={p.tags.join(' ')}>
+  <h3 id={project.id}>{p.title}</h3>
+  <p class="meta">{context}</p>
+  <p data-verbatim={verbatim(p.summaryVerbatim)} set:html={prose(p.summary, p.summaryVerbatim)} />
+  {p.result && <p>Result: <Fragment set:html={site.text(p.result, where)} /></p>}
+  <p>Tags: {p.tags.map((t) => TAGS[t]).join(', ')}</p>
+  <MaterialLine items={p.material} name={p.title} />
+  {decks.map((deck) => <DeckFigure deck={deck} context="entry" />)}
+  {reports.map((item) => item.type === 'pdf' && <ReportFigure item={item} name={p.title} />)}
+  {method.length > 0 && (
+    <details>
+      <summary>Method</summary>
+      {method.length === 1 ? (
+        <p data-verbatim={verbatim(p.methodVerbatim)} set:html={prose(method[0], p.methodVerbatim)} />
+      ) : (
+        <ul data-verbatim={verbatim(p.methodVerbatim)}>
+          {method.map((m) => <li set:html={prose(m, p.methodVerbatim)} />)}
+        </ul>
+      )}
+    </details>
+  )}
+</div>

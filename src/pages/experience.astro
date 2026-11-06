@@ -1,18 +1,30 @@
 ---
 import Base from '../layouts/Base.astro';
+import EducationEntry from '../components/EducationEntry.astro';
 import Entry from '../components/Entry.astro';
 import { getSite } from '../lib/site';
 
 const site = await getSite();
-// Phase 1 design proof: only the ROUTEin entry. Phase 2 renders every entry,
-// then the Education and Extracurricular sections.
-const work = site.experience.filter((e) => e.data.section === 'work' && e.id === 'routein');
+const work = site.experience.filter((e) => e.data.section === 'work');
+const extracurricular = site.experience.filter((e) => e.data.section === 'extracurricular');
 ---
 <Base
   title="Experience - Amin Borqal"
   description="Experience, education and extracurricular activities of Amin Borqal, with slides, reports and code."
   page="experience"
 >
-  <h2>Experience</h2>
-  {work.map((entry) => <Entry entry={entry} />)}
+  <section>
+    <h2>Experience</h2>
+    {work.map((entry) => <Entry entry={entry} />)}
+  </section>
+  <hr>
+  <section>
+    <h2>Education</h2>
+    {site.education.map((entry) => <EducationEntry entry={entry} />)}
+  </section>
+  <hr>
+  <section>
+    <h2>Extracurricular</h2>
+    {extracurricular.map((entry) => <Entry entry={entry} />)}
+  </section>
 </Base>

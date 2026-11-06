@@ -1,0 +1,31 @@
+---
+// One deck on the Presentations page: title (anchor = slug), "event · place ·
+// date", poster with its viewer, and the entries it belongs to.
+import type { Deck } from '../lib/site';
+import { getSite } from '../lib/site';
+import { fmtWhen } from '../lib/format';
+import DeckFigure from './DeckFigure.astro';
+
+interface Props {
+  deck: Deck;
+}
+
+const { deck } = Astro.props;
+const site = await getSite();
+const d = deck.data;
+const meta = [d.label, d.event, d.place, fmtWhen(d.date, d.datesText)].filter(Boolean).join(' · ');
+---
+<div class="entry">
+  <h3 id={deck.id}>{d.title}</h3>
+  <p class="meta">{meta}</p>
+  <DeckFigure deck={deck} context="presentations" />
+  <p>
+    Related:{' '}
+    {d.related.map((id, i) => (
+      <Fragment>
+        {i > 0 && ', '}
+        <a href={site.resolve(id, `presentations ${deck.id}`)}>{site.label(id)}</a>
+      </Fragment>
+    ))}
+  </p>
+</div>

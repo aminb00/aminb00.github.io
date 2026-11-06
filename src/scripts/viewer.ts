@@ -175,6 +175,8 @@ function fromHash() {
   const m = HASH.exec(location.hash);
   const v = m && viewers.get(m[1]);
   if (!m || !v) return;
+  // Lets the project filter show the project first if it is hidden.
+  document.dispatchEvent(new CustomEvent('deck:reveal', { detail: v.fig }));
   open(v, Number(m[2]), true);
   v.fig.scrollIntoView({ block: 'start' });
 }

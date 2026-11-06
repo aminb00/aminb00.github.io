@@ -1,0 +1,24 @@
+---
+// A quiet nod to the old Apache error page: no site header, just the message,
+// a rule, and the way home.
+import { CSS } from '../lib/css';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>404 Not Found</title>
+    <meta name="robots" content="noindex">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <style is:inline set:html={CSS}></style>
+  </head>
+  <body>
+    <main>
+      <h1>Not Found</h1>
+      <p>The requested URL was not found on this server.</p>
+    </main>
+    <hr>
+    <address><a href="/">Amin Borqal's Home Page</a></address>
+  </body>
+</html>

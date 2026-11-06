@@ -1,0 +1,44 @@
+---
+// A report (a PDF that is not slides): first-page poster and its [PDF] link.
+import type { CollectionEntry } from 'astro:content';
+import { getSite, githubBlob } from '../lib/site';
+import { fmtBytes } from '../lib/format';
+import { capitalize, plain } from '../lib/text';
+
+type Material = CollectionEntry<'projects'>['data']['material'][number];
+type PdfMaterial = Extract<Material, { type: 'pdf' }>;
+
+interface Props {
+  item: PdfMaterial;
+  /** The heading of the entry the report belongs to. */
+  name: string;
+}
+
+const { item, name } = Astro.props;
+const site = await getSite();
+const info = site.doc(item.id);
+const pdf = site.materialPdf(item.file, name);
+const what = item.title ?? `${plain(item.label)}, ${name}`;
+---
+<figure class="doc">
+  <a href={pdf.href} hreflang={item.hreflang}>
+    <img
+      class="poster page"
+      src={`/slides/${item.id}/poster.webp`}
+      width={info.poster[0] / 2}
+      height={info.poster[1] / 2}
+      alt={`First page of ${what}`}
+      loading="lazy"
+      decoding="async"
+    >
+  </a>
+  <figcaption>
+    <Fragment set:html={site.text(capitalize(item.label), name)} />:{' '}
+    <span class="nb">[<a href={pdf.href} hreflang={item.hreflang}>PDF, {fmtBytes(pdf.bytes)}</a>]</span>
+    {item.source && (
+      <Fragment>
+        {' '}<span class="nb">[<a href={githubBlob(item.source.github)}>source on GitHub</a>]</span>
+      </Fragment>
+    )}
+  </figcaption>
+</figure>

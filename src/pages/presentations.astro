@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import DeckItem from '../components/DeckItem.astro';
+import { getSite } from '../lib/site';
+
+const site = await getSite();
+---
+<Base
+  title="Presentations - Amin Borqal"
+  description="Slides by Amin Borqal, viewable on the page."
+  page="presentations"
+>
+  <h2>Presentations</h2>
+  <p>My slides, newest first. Each deck opens on this page.</p>
+  {site.presentations.map((deck) => <DeckItem deck={deck} />)}
+</Base>

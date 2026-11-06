@@ -1,0 +1,22 @@
+---
+// Project filter: plain text links, the active one bold. Hidden until the
+// script runs, so without JS every project simply shows.
+import { TAGS, type Tag, getSite } from '../lib/site';
+
+const site = await getSite();
+const used = new Set(site.projects.flatMap((p) => p.data.tags));
+const tags = (Object.keys(TAGS) as Tag[]).filter((t) => used.has(t));
+---
+<nav class="filter" aria-label="Filter projects by topic" data-filter hidden>
+  <a href="#tag=all" data-tag="all" aria-current="true">All</a>
+  {tags.map((t) => (
+    <Fragment>
+      {' · '}<a href={`#tag=${t}`} data-tag={t}>{TAGS[t]}</a>
+    </Fragment>
+  ))}
+</nav>
+<p class="vh" aria-live="polite" data-filter-status></p>
+<script>
+  import { initFilter } from '../scripts/filter';
+  initFilter();
+</script>
