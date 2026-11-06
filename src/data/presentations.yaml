@@ -1,0 +1,16 @@
+# Decks: one entry and one PDF in public/pdf/ per deck. `npm run dev` or
+# `npm run build` turns the PDF into slide images.
+# related: the experience or project slugs that show this deck. That one field
+# makes both links: the entry shows the deck, the deck links back to the entry.
+# pdf: { file: name.pdf } for a file in public/pdf/, or { url, bytes } for a PDF
+# hosted elsewhere (the Drive original when no copy fits under 20 MB).
+
+- id: paris-pitch
+  title: Operational Intelligence for Field Service
+  label: Paris Pitch
+  event: CoDEMO 5.0 International Innovation Award
+  place: Paris, France
+  date: 2026-06
+  pdf: { file: paris-pitch.pdf }
+  source: { drive: 1sRtdW3rOTNv9IpU1fq_oBxjclYZO4hG0 }
+  related: [routein]

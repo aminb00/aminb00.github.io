@@ -1,0 +1,55 @@
+# Education, on the Experience page. Order: by end date, newest first.
+
+- id: msc
+  degree: M.Sc. in Computer Science and Engineering
+  school: University of Bergamo
+  end: 2027-04
+  expected: true
+  thesis:
+    id: msc-thesis
+    title: Blood Glucose Model Predictive Control via Compartmental Recurrent Neural Networks
+    workingTitle: true
+    status: in progress
+    lab: Control Systems and Automation Laboratory
+    supervisors: [Davide Previtali, Nicola Licini]
+    topic: "Blood glucose control for the artificial pancreas (type 1 diabetes). Compartmental recurrent neural networks are the prediction model inside a Model Predictive Control scheme, with a system identification part."
+    statusText: started October 2026, study phase, no results yet.
+  focus: System Identification, Data Science and computational methods.
+  subjects:
+    - Algorithms
+    - Advanced Programming
+    - System Identification
+    - Statistical Learning
+    - Adaptive Learning, Estimation and Supervision of Dynamical Systems (RLS, Kalman filter, fault diagnosis)
+    - Optimization (convex, stochastic gradient descent, non-convex)
+    - Deep Learning
+    - Statistics for High Dimensional Data
+
+- id: erasmus
+  degree: Erasmus+ Exchange, M.Sc. in Computer Science
+  school: Universiteit Antwerpen, Belgium
+  start: 2025-09
+  end: 2026-01
+  subjects:
+    - "[Research Internship in MS/MS Proteomics](#antwerp-internship)"
+    - Information Retrieval
+    - Geographical Information Systems (GIS)
+
+- id: bsc
+  degree: B.Sc. in Computer Science and Engineering
+  school: University of Bergamo
+  end: 2024-12
+  thesis:
+    title: Italian Emission Daily Dataset
+    project: iedd
+  subjects:
+    - Mathematical Analysis
+    - Linear Algebra
+    - Logics and Algebra
+    - Statistics
+    - Time Series
+    - Control Systems
+    - Object-Oriented Programming
+    - Databases
+    - Web Technologies
+    - Management Accounting

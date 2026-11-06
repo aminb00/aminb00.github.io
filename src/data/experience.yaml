@@ -1,0 +1,112 @@
+# Experience page: section "work" (Experience) and "extracurricular".
+# Order on the page: ongoing first, then by end date, newest first.
+# Bullets are verbatim. Text marks: **bold**, `mono`, [label](#slug).
+# Decks appear here by themselves: see `related` in presentations.yaml.
+
+- id: routein
+  section: work
+  role: Founder & AI Project Lead
+  org: ROUTEin, AI-driven Field Service Management Startup
+  place: Bergamo, Italy
+  start: 2025-05
+  end: present
+  bullets:
+    - "Born in the UniBg Entrepreneurship Lab CREO from an industrial challenge by Magris S.p.A.: reducing the hidden travel costs that erode contract margins in small and medium-sized Italian maintenance and installation companies."
+    - "Managed the whole project, from the business side (need validation, business plan, pitch) to the technical design of the platform: AI-based technician dispatching, cost tracking per contract and an AI assistant that finds process bottlenecks."
+    - "**1st place** at the CoDEMO International Innovation Award (Paris, 2026), **Industry 5.0** category, among 8 national winners from across Europe. Validated on real operational data from a leading Italian field service company."
+  material:
+    - type: link
+      label: award
+      url: https://www.codemo-project.eu/
+  oneLine: "**ROUTEin**: Founder & AI Project Lead, May 2025 - Present. 1st place at the CoDEMO 5.0 International Innovation Award, Paris, Jun 2026 (Industry 5.0 category)."
+
+- id: antwerp-internship
+  section: work
+  role: "Research Intern: Machine Learning for Proteomics"
+  org: Universiteit Antwerpen, ADReM Data Lab (Erasmus+)
+  place: Antwerp, Belgium
+  start: 2025-09
+  end: 2026-01
+  bullets:
+    - "Worked on Machine Learning for Tandem Mass Spectrometry (MS/MS) chimeric spectra decomposition: from raw proteome data to sparse spectral deconvolution using LASSO regression, on large-scale real experimental proteomics data."
+    - "Integrated MSFragger-DDA+ for multi-peptide identification, IonQuant for MS1 quantification, and Prosit Deep Learning Model for peptide spectra predictions."
+    - "Bridged Data Science and Computational Biology to validate results and characterize fragmentation competition, revealing that MS1 abundance and MS2 fragmentation dominance are governed by distinct physicochemical mechanisms."
+  details:
+    - "Supervised by Prof. Wout Bittremieux and Charlotte Adams (PostDoc); I carried out the project on my own."
+    - "Scale: 1,276,641 peptide-spectrum matches (PSMs), 693,596 unique MS2 spectra, 355,592 chimeric spectra (51.3%), about 1.1M Prosit predictions, about 50-70 GB of experimental data, about 48 h of processing on the Flemish Supercomputer Center (VSC) with SLURM."
+    - "Results: linear mixture models reach 0.803 mean cosine similarity (the additive fragmentation assumption holds); MS1 abundance does not predict MS2 fragmentation dominance; reconstruction quality increases with chimericity."
+    - Final presentation to the lab as the internship exam.
+  material:
+    - type: code
+      url: https://github.com/aminb00/Exploring-Fragmentation-Competion-in-Proteomics-Data-to-Decode-Chimeric-Spectra
+    - type: todo
+      note: slides of the lab presentation (Jan 2026)
+    - type: todo
+      note: report
+  oneLine: "**Research Intern: Machine Learning for Proteomics**, ADReM Data Lab, Universiteit Antwerpen (Erasmus+), Sep 2025 - Jan 2026."
+
+- id: grins
+  section: work
+  role: Geo-Spatial Data Scientist Researcher (research grant)
+  org: Research in Environmental Statistics - GRINS, Dept. of Economics, University of Bergamo
+  place: Bergamo, Italy
+  start: 2025-02
+  end: 2025-11
+  bullets:
+    - "Extended my B.Sc. thesis into a reproducible **pipeline** to regularly update a high-resolution daily dataset of atmospheric emissions for all Italian municipalities, contributing to a national-scale research infrastructure."
+    - "Designed and implemented **geo-matching** (area-weighted allocation) to transform grid-based emissions into municipality-level spatio-temporal time series."
+    - "Leveraged **High Performance Computing (HPC)** for large-scale spatio-temporal processing and quality assurance."
+  details:
+    - "Sources: CAMS-REG-ANT and CAMS-REG-TEMPO inventories; 10 pollutants × 12 GNFR sectors, 2000-2026."
+    - The data are reused in at least two other GRINS projects.
+    - "Continuation of my [B.Sc. thesis](#iedd)."
+  material:
+    - type: code
+      url: https://github.com/GRINS-Spoke0-WP2/EM-CAMS
+    - type: code
+      label: my fork
+      url: https://github.com/aminb00/EM-CAMS
+    - type: todo
+      note: slides, if any
+
+- id: guarniflon
+  section: work
+  role: Extrusion Worker
+  org: Guarniflon S.p.A.
+  place: Castelli Calepio, Italy
+  start: 2022-02
+  end: 2025-01
+  bullets:
+    - "Operated and maintained extrusion machinery for PTFE products while studying full-time at university: learned to manage my time, stay responsible, and keep commitments even under pressure."
+
+- id: harnekinfo
+  section: work
+  role: Internship
+  org: HarnekInfo
+  place: Sarnico, Italy
+  start: 2018-02
+  end: 2018-06
+  datesText: Feb 2018 & Jun 2018
+  bullets:
+    - Contributed to web development projects, gaining practical industry experience.
+
+- id: bergamoscienza
+  section: extracurricular
+  role: Robotics Project Developer
+  org: BergamoScienza
+  place: Bergamo, Italy
+  start: 2019-01
+  end: 2020-06
+  bullets:
+    - In team, we built a domotic greenhouse controlled by Arduino as the main project.
+    - Presented the project during school-science events to engage attendees about technology and sustainability.
+
+- id: school-ambassador
+  section: extracurricular
+  role: School Ambassador
+  org: Open Days Initiative
+  place: Bergamo, Italy
+  start: 2019-09
+  end: 2020-02
+  bullets:
+    - Acted as a representative of the school, explaining educational programs and showcasing student projects to prospective students and their families.

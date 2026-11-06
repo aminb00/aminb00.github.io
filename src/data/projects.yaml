@@ -1,0 +1,39 @@
+# Projects page, in this order.
+# context: parts joined with " · ". A part starting with "TODO" is left out.
+# Text marks: **bold**, `mono` (numbers in results), [label](#slug).
+
+- id: rpca
+  title: Adaptive Fault Detection under Process Drift using Recursive PCA
+  context:
+    - Course project, Adaptive Learning, Estimation and Supervision of Dynamical Systems
+    - University of Bergamo
+    - "2026"
+    - MATLAB
+  summary: Built a real-time fault diagnosis system (Recursive PCA, Li et al. 2000) for predictive maintenance of non-stationary industrial processes, telling genuine sensor faults apart from benign process drift that defeats fixed-model PCA.
+  summaryVerbatim: true
+  result: "false-alarm rate from `32.6%` to near-nominal, step-fault detection above `81%`, on a synthetic multi-sensor dataset with simultaneous drifts and impulsive, incipient and step faults."
+  method: "adaptive RPCA with EWMA covariance tracking and incremental eigenstructure updates (Lanczos tridiagonalization, Sturm-sequence bisection, inverse iteration), avoiding full SVD, with VRE-based component selection."
+  tags: [control, ml]
+  material:
+    - type: code
+      url: https://github.com/aminb00/Adaptive-Fault-Detection-under-Process-Drift-using-Recursive-PCA
+  oneLine: "**Adaptive Fault Detection under Process Drift using Recursive PCA**, course project, University of Bergamo, 2026: false-alarm rate from `32.6%` to near-nominal, step-fault detection above `81%`."
+
+- id: iedd
+  title: Italian Emission Daily Dataset (B.Sc. thesis)
+  context:
+    - B.Sc. thesis
+    - University of Bergamo
+    - Apr 2024 - Nov 2024
+    - R
+  summary: daily emission estimates for the main pollutants over all of Italy, built from the CAMS-REG-ANT and CAMS-REG-TEMPO inventories with temporal downscaling (annual to daily) and spatial aggregation.
+  result: "`2000-2022` coverage (v2; v1 covered `2000-2020`), `0.05° × 0.1°` resolution, `7` pollutants × `12` GNFR sectors (A-L) plus aggregated sectors. It is the basis of my [GRINS work](#grins)."
+  tags: [geo]
+  material:
+    - type: code
+      url: https://github.com/aminb00/Italian-Emissions-Daily-Dataset
+    - type: link
+      label: dataset
+      url: https://aminb00.github.io/Italian-Emissions-Daily-Dataset/
+    - type: todo
+      note: thesis PDF and defense slides (Dec 2024)
