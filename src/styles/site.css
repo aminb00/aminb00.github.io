@@ -1,0 +1,153 @@
+/* The whole site's style. Most of the look is the browser's own defaults:
+   this file only sets what a 1996 page would have set, plus what phones need. */
+
+/* The serif a 1996 browser would use. "Faculty Serif" resolves to the
+   installed Times New Roman (Mac, Windows, iOS: nothing to download). Where it
+   is missing (Android, most Linux) the browser downloads Tinos, which has the
+   same metrics. Android aliases the name "Times New Roman" to its own serif,
+   so the plain stack would never reach Tinos there. */
+@font-face {
+  font-family: "Faculty Serif";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Times New Roman"), local("TimesNewRomanPSMT"),
+    url("/fonts/tinos-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Faculty Serif";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Times New Roman Italic"), local("TimesNewRomanPS-ItalicMT"),
+    url("/fonts/tinos-latin-400-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Faculty Serif";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Times New Roman Bold"), local("TimesNewRomanPS-BoldMT"),
+    url("/fonts/tinos-latin-700-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Faculty Serif";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Times New Roman Bold Italic"), local("TimesNewRomanPS-BoldItalicMT"),
+    url("/fonts/tinos-latin-700-italic.woff2") format("woff2");
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 1em;
+  max-width: 42em;
+  background: #fff;
+  color: #000;
+  font: 17px / 1.4 "Faculty Serif", "Times New Roman", Times, Tinos, serif;
+}
+
+/* Browser sizes, written out so no browser differs. <hr> keeps its default
+   2px inset look. */
+h1 { font-size: 2em; }
+h2 { font-size: 1.5em; margin: 0.83em 0; }
+h3 { font-size: 1.17em; }
+
+a:link { color: #0000ee; }
+a:visited { color: #551a8b; }
+a:active { color: #ee0000; }
+
+[hidden] { display: none !important; }
+
+code { font-family: "Courier New", Courier, monospace; font-size: 1em; }
+
+img { max-width: 100%; height: auto; }
+
+hr { clear: both; }
+
+/* Read by screen readers, not shown. */
+.vh {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip:not(:focus) { position: absolute; left: -10000px; }
+
+/* Header: name, affiliation line, navigation. */
+header h1 { margin-bottom: 0.25em; }
+.affil { margin: 0; }
+header nav { margin: 0.5em 0 1em; }
+
+/* Entries on Experience and Projects. */
+.entry h3 { margin-bottom: 0.25em; }
+.entry .meta { margin-top: 0; }
+
+/* Project filter: the active choice is bold. */
+.filter { margin: 1em 0; }
+.filter a[aria-current] { font-weight: bold; }
+
+/* Portrait: right of the text on wide screens, above it on phones. */
+.portrait {
+  float: right;
+  width: 150px;
+  margin: 0 0 1em 1.5em;
+  border: 1px solid #000;
+}
+.portrait.placeholder {
+  box-sizing: border-box;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #c0c0c0;
+}
+@media (max-width: 30em) {
+  .portrait { float: none; margin: 0 0 1em; }
+}
+
+/* Decks and reports: first-page poster; the slide viewer opens in its place. */
+.deck, .doc { margin: 1em 0; }
+.poster { display: block; width: 320px; border: 1px solid #000; }
+.poster.page { width: 200px; } /* first page of a report: portrait */
+figcaption { margin-top: 0.5em; }
+.viewer p { margin: 0.5em 0; }
+.viewer .slide {
+  display: block;
+  width: 100%;
+  border: 1px solid #000;
+  touch-action: pan-y pinch-zoom;
+}
+.count { font-family: "Courier New", Courier, monospace; white-space: nowrap; }
+.viewer:fullscreen {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  background: #fff;
+}
+.viewer:fullscreen .slide {
+  flex: 1;
+  min-height: 0;
+  object-fit: contain;
+  border: 0;
+}
+
+/* The viewer takes focus when a #deck/3 link opens it: the dotted focus
+   rectangle of 1990s browsers. Buttons and links keep the browser's ring. */
+.viewer:focus { outline: 1px dotted #000; outline-offset: 3px; }
+
+/* A bracketed link never breaks inside its brackets: "[PDF, 10.6 MB]". */
+.nb { white-space: nowrap; }
+
+/* Keeps the two spaces of the Unix date ("Nov  6"). */
+.unix { white-space: pre; }
