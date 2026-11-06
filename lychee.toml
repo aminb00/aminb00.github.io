@@ -1,0 +1,11 @@
+# Link check (npm run links, npm run links:external).
+# Directory links (/experience/#routein) resolve to their index.html, and
+# anchors are checked. #tag=... links are filter states, not anchors.
+include_fragments = "anchor-only"
+index_files = ["index.html"]
+exclude = [
+  '#tag=',
+  # LinkedIn answers 999 to bots: check it by hand.
+  '^https://www\.linkedin\.com/',
+]
+no_progress = true

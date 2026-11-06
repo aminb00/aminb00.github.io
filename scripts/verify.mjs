@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 // Behavior checks in a real browser (the Chrome installed on this machine):
-// slide viewer, deep links, keyboard, swipe, full screen, no-JS fallback, email.
+// slide viewer, deep links, keyboard, swipe, full screen, no-JS fallback,
+// email, project filter, links between decks and entries.
 //
-// Usage: BASE=http://localhost:4321 PAGE=/experience/ DECK=paris-pitch node scripts/verify.mjs
+// Usage: BASE=http://localhost:4400 npm run verify
 
 import { chromium } from 'playwright-core';
 
 const BASE = process.env.BASE ?? 'http://localhost:4321';
-const PAGE = process.env.PAGE ?? '/experience/';
-const DECK = process.env.DECK ?? 'paris-pitch';
+const PAGE = '/experience/';
+const DECK = 'paris-pitch';
 
 const results = [];
 const check = (label, ok, detail = '') => {
@@ -26,10 +27,11 @@ try {
   page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
   page.on('response', (r) => r.status() >= 400 && errors.push(`${r.status()} ${r.url()}`));
 
+  // ---- Slide viewer -------------------------------------------------------
   const fig = `figure[data-deck="${DECK}"]`;
-  const state = () =>
-    page.evaluate((sel) => {
-      const f = document.querySelector(sel);
+  const state = (sel = fig) =>
+    page.evaluate((s) => {
+      const f = document.querySelector(s);
       const img = f.querySelector('[data-slide]');
       return {
         open: !f.querySelector('.viewer').hidden,
@@ -46,7 +48,7 @@ try {
         fsVisible: !f.querySelector('[data-fs]').hidden,
         active: document.activeElement?.outerHTML.slice(0, 60),
       };
-    }, fig);
+    }, sel);
 
   await page.goto(BASE + PAGE, { waitUntil: 'networkidle' });
   let s = await state();
@@ -57,7 +59,8 @@ try {
   check('View slides opens slide 1 in place of the poster', s.open && s.posterHidden && s.n === '1' && s.src.endsWith('/001.webp'));
   check('toggle has aria-expanded=true and reads Hide slides', s.expanded === 'true' && s.toggleText === 'Hide slides');
   check('hash tracks the slide', s.hash === `#${DECK}/1`, s.hash);
-  check('alt text and live region', s.alt.startsWith('Slide 1 of ') && s.live === `Slide 1 of ${await page.getAttribute(fig, 'data-pages')}`, `${s.alt} | ${s.live}`);
+  const pages = await page.getAttribute(fig, 'data-pages');
+  check('alt text and live region', s.alt.startsWith('Slide 1 of ') && s.live === `Slide 1 of ${pages}`, `${s.alt} | ${s.live}`);
   check('prev disabled on slide 1', s.prevDisabled && !s.nextDisabled);
 
   await page.click(`${fig} [data-next]`);
@@ -66,8 +69,7 @@ try {
   const preloaded = await page
     .waitForFunction(() => performance.getEntriesByType('resource').some((r) => r.name.endsWith('/003.webp')), null, { timeout: 3000 })
     .then(() => true, () => false);
-  const fetched = await page.evaluate(() => performance.getEntriesByType('resource').map((r) => r.name.split('/').pop()).filter((n) => n.endsWith('.webp')));
-  check('previous and next slides preloaded', preloaded, fetched.join(' '));
+  check('previous and next slides preloaded', preloaded);
 
   await page.keyboard.press('ArrowRight');
   s = await state();
@@ -77,7 +79,6 @@ try {
   check('← key: slide 2', s.n === '2');
   await page.keyboard.press('End');
   s = await state();
-  const pages = await page.getAttribute(fig, 'data-pages');
   check('End key: last slide, next disabled', s.n === pages && s.nextDisabled);
   await page.keyboard.press('Home');
   s = await state();
@@ -87,7 +88,6 @@ try {
   s = await state();
   check('Esc closes, hash cleared, focus back on the toggle', !s.open && s.hash === '' && s.active.includes('data-toggle'), s.active);
 
-  // Deep link
   await page.goto(`${BASE}${PAGE}#${DECK}/3`, { waitUntil: 'networkidle' });
   await page.waitForTimeout(200);
   s = await state();
@@ -100,7 +100,6 @@ try {
   s = await state();
   check('out-of-range slide number clamps to the last slide', s.open && s.n === pages);
 
-  // Full screen
   await page.goto(`${BASE}${PAGE}#${DECK}/2`, { waitUntil: 'networkidle' });
   await page.click(`${fig} [data-fs]`);
   await page.waitForTimeout(300);
@@ -109,7 +108,93 @@ try {
   check('Full screen enters full screen on the viewer', fsOn && fsLabel === 'Exit full screen', fsLabel);
   await page.evaluate(() => document.exitFullscreen());
 
-  // Email
+  // Opening a second deck closes the first.
+  await page.goto(`${BASE}/presentations/`, { waitUntil: 'networkidle' });
+  const decks = await page.$$eval('figure.deck', (fs) => fs.map((f) => f.dataset.deck));
+  await page.click(`figure[data-deck="${decks[0]}"] [data-toggle]`);
+  await page.click(`figure[data-deck="${decks[1]}"] [data-toggle]`);
+  const openNow = await page.$$eval('figure.deck', (fs) => fs.filter((f) => !f.querySelector('.viewer').hidden).map((f) => f.dataset.deck));
+  check('one viewer open at a time', openNow.length === 1 && openNow[0] === decks[1], openNow.join(','));
+
+  // Every deck's slides load.
+  let allLoad = true;
+  for (const id of decks) {
+    await page.goto(`${BASE}/presentations/#${id}/2`, { waitUntil: 'networkidle' });
+    const ok = await page
+      .waitForFunction(
+        (d) => {
+          const img = document.querySelector(`figure[data-deck="${d}"] [data-slide]`);
+          return img.complete && img.naturalWidth > 0 && img.getAttribute('src').endsWith('/002.webp');
+        },
+        id,
+        { timeout: 5000 },
+      )
+      .then(() => true, () => false);
+    if (!ok) allLoad = false;
+  }
+  check(`every deck opens on the Presentations page (${decks.length} decks)`, allLoad);
+
+  // ---- Links between decks and entries ------------------------------------
+  const related = await page.$$eval('main .entry', (entries) =>
+    entries.map((e) => ({ id: e.querySelector('h3').id, related: [...e.querySelectorAll('p a')].filter((a) => a.closest('p').textContent.trim().startsWith('Related:')).map((a) => a.getAttribute('href')) })),
+  );
+  let backAndForth = related.every((d) => d.related.length > 0);
+  for (const d of related) {
+    for (const href of d.related) {
+      await page.goto(BASE + href, { waitUntil: 'networkidle' });
+      const anchor = href.split('#')[1];
+      const linksBack = await page.evaluate(
+        ([a, deck]) => {
+          const entry = document.getElementById(a)?.closest('.entry');
+          return Boolean(entry?.querySelector(`figure[data-deck="${deck}"] figcaption a[href="/presentations/#${deck}"]`));
+        },
+        [anchor, d.id],
+      );
+      if (!linksBack) backAndForth = false;
+    }
+  }
+  check('every deck links to its entry, and the entry shows the deck and links back', backAndForth, related.map((d) => `${d.id}→${d.related.join('+')}`).join(' '));
+
+  // ---- Project filter -------------------------------------------------------
+  const visibleProjects = () => page.$$eval('.project', (ps) => ps.filter((p) => !p.hidden).map((p) => p.querySelector('h3').id));
+  await page.goto(`${BASE}/projects/`, { waitUntil: 'networkidle' });
+  const all = await visibleProjects();
+  const filterShown = await page.$eval('[data-filter]', (n) => !n.hidden);
+  check('filter shown with JS, all projects visible', filterShown && all.length > 0, `${all.length} projects`);
+  const filtered = (tag) =>
+    page.waitForFunction((t) => document.querySelector('[data-filter] a[aria-current]')?.dataset.tag === t, tag, { timeout: 3000 }).catch(() => {});
+  await page.click('[data-filter] a[data-tag="geo"]');
+  await filtered('geo');
+  const geo = await visibleProjects();
+  const geoState = await page.evaluate(() => ({
+    hash: location.hash,
+    current: document.querySelector('[data-filter] a[aria-current]')?.dataset.tag,
+    status: document.querySelector('[data-filter-status]').textContent,
+  }));
+  const geoOk = geo.length > 0 && geo.length < all.length && (await page.$$eval('.project:not([hidden])', (ps) => ps.every((p) => p.dataset.tags.split(' ').includes('geo'))));
+  check('Geospatial: only geo projects, hash #tag=geo, active link marked, count announced', geoOk && geoState.hash === '#tag=geo' && geoState.current === 'geo' && /^Showing \d+ of \d+ projects$/.test(geoState.status), `${geo.join(',')} | ${geoState.status}`);
+  const bold = await page.$eval('[data-filter] a[aria-current]', (a) => getComputedStyle(a).fontWeight);
+  check('the active filter is bold', Number(bold) >= 700, bold);
+  await page.click('[data-filter] a[data-tag="all"]');
+  await filtered('all');
+  await page.waitForFunction(() => location.hash === '', null, { timeout: 3000 }).catch(() => {});
+  const back = await visibleProjects();
+  check('All: every project again, hash cleared', back.length === all.length && (await page.evaluate(() => location.hash)) === '');
+  await page.goto(`${BASE}/projects/#tag=ml`, { waitUntil: 'networkidle' });
+  const ml = await visibleProjects();
+  check('a #tag=ml link opens the filtered list', ml.length > 0 && ml.length < all.length, ml.join(','));
+  await page.evaluate(() => (location.hash = '#rpca-slides/2'));
+  await page.waitForTimeout(300);
+  const deckOpen = await page.evaluate(() => !document.querySelector('figure[data-deck="rpca-slides"] .viewer').hidden);
+  check('a deck link opens its viewer even while a filter is on', deckOpen);
+  await page.goto(`${BASE}/projects/#tag=software`, { waitUntil: 'networkidle' });
+  await page.evaluate(() => (location.hash = '#rpca-slides/2'));
+  await page.waitForTimeout(300);
+  const revealed = await page.evaluate(() => !document.querySelector('#rpca').closest('.project').hidden && !document.querySelector('figure[data-deck="rpca-slides"] .viewer').hidden);
+  check('a deck in a project hidden by the filter: filter resets, deck opens', revealed);
+  await page.keyboard.press('Escape');
+
+  // ---- Email ----------------------------------------------------------------
   await page.goto(BASE + '/', { waitUntil: 'networkidle' });
   const mail = await page.evaluate(() => [...document.querySelectorAll('[data-email] a')].map((a) => a.getAttribute('href')));
   check('email turned into mailto links', mail.length >= 2 && mail.every((h) => h === 'mailto:aminborqal10@gmail.com'), mail.join(' '));
@@ -118,19 +203,22 @@ try {
   const status = await page.textContent('[data-copy-status]');
   const clip = await page.evaluate(() => navigator.clipboard.readText());
   check('Copy email copies and announces Copied', status === 'Copied' && clip === 'aminborqal10@gmail.com', `${status} | ${clip}`);
-  const raw = await (await page.request.get(BASE + '/')).text();
-  check('HTML never holds the whole address', !raw.includes('aminborqal10@gmail.com'));
+  let leaked = false;
+  for (const p of ['/', '/experience/', '/projects/', '/presentations/', '/cv/', '/cv.txt']) {
+    if ((await (await page.request.get(BASE + p)).text()).includes('aminborqal10@gmail.com')) leaked = true;
+  }
+  check('no page or file holds the whole address', !leaked);
 
-  check('no JS errors', errors.length === 0, errors.join(' | '));
+  check('no JS errors or failed requests', errors.length === 0, errors.join(' | '));
   await ctx.close();
 
-  // Swipe on a phone
+  // ---- Swipe on a phone -----------------------------------------------------
   const phone = await browser.newContext({ viewport: { width: 375, height: 812 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
   const p2 = await phone.newPage();
   await p2.goto(`${BASE}${PAGE}#${DECK}/2`, { waitUntil: 'networkidle' });
   const box = await p2.locator(`${fig} [data-slide]`).boundingBox();
+  const cdp = await phone.newCDPSession(p2);
   const swipe = async (from, to) => {
-    const cdp = await phone.newCDPSession(p2);
     const y = box.y + box.height / 2;
     await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: from, y }] });
     for (let i = 1; i <= 5; i++) await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: from + ((to - from) * i) / 5, y }] });
@@ -143,7 +231,7 @@ try {
   check('swipe left: next slide, swipe right: previous', afterLeft === '3' && afterRight === '2', `${afterLeft}, ${afterRight}`);
   await phone.close();
 
-  // Without JS
+  // ---- Without JS -------------------------------------------------------------
   const nojs = await browser.newContext({ javaScriptEnabled: false });
   const p3 = await nojs.newPage();
   await p3.goto(BASE + PAGE, { waitUntil: 'networkidle' });
@@ -161,6 +249,12 @@ try {
   check('without JS: poster and PDF link, no toggle, no viewer', fallback.poster && fallback.posterLinksPdf && fallback.pdfLink && !fallback.toggle && !fallback.viewer, JSON.stringify(fallback));
   const nojsMail = await p3.textContent('[data-email]');
   check('without JS: email shown as "[at] [dot]" text', nojsMail.includes('[at]') && nojsMail.includes('[dot]'), nojsMail);
+  await p3.goto(`${BASE}/projects/`, { waitUntil: 'networkidle' });
+  const nojsProjects = await p3.evaluate(() => ({
+    filter: document.querySelector('[data-filter]').getClientRects().length > 0,
+    hidden: [...document.querySelectorAll('.project')].filter((p) => p.getClientRects().length === 0).length,
+  }));
+  check('without JS: no filter line, every project visible', !nojsProjects.filter && nojsProjects.hidden === 0, JSON.stringify(nojsProjects));
   await nojs.close();
 } finally {
   await browser.close();
