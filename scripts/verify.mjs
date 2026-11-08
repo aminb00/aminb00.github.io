@@ -231,6 +231,57 @@ try {
   check('swipe left: next slide, swipe right: previous', afterLeft === '3' && afterRight === '2', `${afterLeft}, ${afterRight}`);
   await phone.close();
 
+  // ---- Keyboard only ----------------------------------------------------------
+  // Tab through every page: each focusable element must get focus, in view,
+  // with a visible focus indicator. Then open a <details> and a filter by keys.
+  const kb = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+  const kp = await kb.newPage();
+  const problems = [];
+  let total = 0;
+  for (const path of ['/', '/experience/', '/projects/', '/presentations/', '/cv/']) {
+    await kp.goto(BASE + path, { waitUntil: 'networkidle' });
+    // Links inside a closed <details> are skipped by Tab, as they should be.
+    const count = await kp.$$eval('a[href], button, summary, [tabindex]:not([tabindex="-1"])', (els) =>
+      els.filter((e) => e.getClientRects().length > 0 && (e.tagName === 'SUMMARY' || !e.closest('details:not([open])'))).length,
+    );
+    const visited = new Set();
+    for (let i = 0; i < count; i++) {
+      await kp.keyboard.press('Tab');
+      const info = await kp.evaluate(() => {
+        const el = document.activeElement;
+        if (!el || el === document.body) return null;
+        const cs = getComputedStyle(el);
+        const r = el.getBoundingClientRect();
+        return {
+          id: [...document.querySelectorAll('*')].indexOf(el),
+          tag: el.outerHTML.slice(0, 60),
+          ring: cs.outlineStyle !== 'none' && parseFloat(cs.outlineWidth) > 0,
+          inView: r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < innerHeight,
+        };
+      });
+      if (!info) break;
+      visited.add(info.id);
+      if (!info.ring || !info.inView) problems.push(`${path} ${info.tag}`);
+    }
+    total += visited.size;
+    if (visited.size !== count) problems.push(`${path}: reached ${visited.size} of ${count} focusable elements`);
+  }
+  check(`keyboard: every link, button and summary gets visible focus (${total} stops on 5 pages)`, problems.length === 0, problems.slice(0, 5).join(' | '));
+
+  await kp.goto(`${BASE}/experience/`, { waitUntil: 'networkidle' });
+  await kp.focus('details summary');
+  await kp.keyboard.press('Enter');
+  const detailsOpen = await kp.$eval('details', (d) => d.open);
+  check('keyboard: Enter opens a "More" <details>', detailsOpen);
+
+  await kp.goto(`${BASE}/projects/`, { waitUntil: 'networkidle' });
+  await kp.focus('[data-filter] a[data-tag="software"]');
+  await kp.keyboard.press('Enter');
+  await kp.waitForFunction(() => document.querySelector('[data-filter] a[aria-current]')?.dataset.tag === 'software', null, { timeout: 3000 }).catch(() => {});
+  const softwareOnly = await kp.$$eval('.project', (ps) => ps.filter((p) => !p.hidden).map((p) => p.querySelector('h3').id));
+  check('keyboard: Enter on a filter link filters', softwareOnly.length === 1 && softwareOnly[0] === 'spendly', softwareOnly.join(','));
+  await kb.close();
+
   // ---- Without JS -------------------------------------------------------------
   const nojs = await browser.newContext({ javaScriptEnabled: false });
   const p3 = await nojs.newPage();
