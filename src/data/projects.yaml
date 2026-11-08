@@ -66,9 +66,7 @@
       id: rag-report
       label: report
       file: rag-report.pdf
-      # Page 1 lists the group members with their student numbers: no poster
-      # until you confirm.
-      poster: false
+      poster: true
       source: { github: { repo: aminb00/RAG-System-for-University-Knowledge-Access, path: report.pdf } }
     - type: link
       label: REPORT.md
@@ -94,9 +92,7 @@
       id: ann-benchmark-report
       label: 21-page LaTeX report
       file: ann-benchmark-report.pdf
-      # Page 1 lists the group members with their student numbers: no poster
-      # until you confirm.
-      poster: false
+      poster: true
       source: { github: { repo: aminb00/WikipediaMovie-Embedding-Retrieval-MultiIndexingBenchmark, path: Documentation/main.pdf } }
     - type: todo
       note: slides, if any

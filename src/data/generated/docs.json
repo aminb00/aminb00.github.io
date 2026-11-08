@@ -1,0 +1,167 @@
+{
+  "docs": {
+    "aircraft-slides": {
+      "kind": "deck",
+      "pages": 67,
+      "width": 1600,
+      "height": 1200,
+      "poster": [
+        640,
+        480
+      ],
+      "pdf": {
+        "path": "pdf/aircraft-slides.pdf",
+        "bytes": 3346027,
+        "sha256": "034185694043da64d08ef3a88ed1aed70914d9e02b98d35d36d3938f2661c72a"
+      },
+      "renderedFrom": "034185694043da64d08ef3a88ed1aed70914d9e02b98d35d36d3938f2661c72a"
+    },
+    "ann-benchmark-report": {
+      "kind": "report",
+      "pages": 21,
+      "width": 1600,
+      "height": 2263,
+      "poster": [
+        400,
+        566
+      ],
+      "pdf": {
+        "path": "pdf/ann-benchmark-report.pdf",
+        "bytes": 1282890,
+        "sha256": "9bde43ecb91808d4ed096d821224dfae8ac63152c9ea36a2d2902d37b43a272c"
+      },
+      "renderedFrom": "9bde43ecb91808d4ed096d821224dfae8ac63152c9ea36a2d2902d37b43a272c"
+    },
+    "antwerp-slides": {
+      "kind": "deck",
+      "pages": 33,
+      "width": 1600,
+      "height": 901,
+      "poster": [
+        640,
+        360
+      ],
+      "pdf": {
+        "path": "pdf/antwerp-slides.pdf",
+        "bytes": 3186676,
+        "sha256": "97b170e5f961b0fef49ae46bb0ad5c6f8d1c72f8908f436944c280061a4e644b"
+      },
+      "renderedFrom": "97b170e5f961b0fef49ae46bb0ad5c6f8d1c72f8908f436944c280061a4e644b",
+      "posterSlide": 2
+    },
+    "convex-slides": {
+      "kind": "deck",
+      "pages": 33,
+      "width": 1600,
+      "height": 901,
+      "poster": [
+        640,
+        360
+      ],
+      "pdf": {
+        "path": "pdf/convex-slides.pdf",
+        "bytes": 4169964,
+        "sha256": "d0f81ad99f21505197f576bded86586bebc7fa7b09777b8fa8dc35f6efbc8054"
+      },
+      "renderedFrom": "d0f81ad99f21505197f576bded86586bebc7fa7b09777b8fa8dc35f6efbc8054",
+      "posterSlide": 2
+    },
+    "istanbul-gee-report": {
+      "kind": "report",
+      "pages": 6,
+      "width": 1600,
+      "height": 2263,
+      "poster": [
+        640,
+        905
+      ],
+      "pdf": {
+        "path": "pdf/istanbul-gee-report.pdf",
+        "bytes": 6480876,
+        "sha256": "808e808fd2258106a996579e60b12f906fec72406cd7e19d21ab1c6ff4adf1d6"
+      },
+      "renderedFrom": "808e808fd2258106a996579e60b12f906fec72406cd7e19d21ab1c6ff4adf1d6"
+    },
+    "paris-pitch": {
+      "kind": "deck",
+      "pages": 13,
+      "width": 1600,
+      "height": 900,
+      "poster": [
+        640,
+        360
+      ],
+      "pdf": {
+        "path": "pdf/paris-pitch.pdf",
+        "bytes": 10557774,
+        "sha256": "59af6f75c510aaf57ddb69c5d588c02e285585b9ce7e735673fc0c8dac308c1c"
+      },
+      "renderedFrom": "13e97842936f70cbac21e84f6590b395943ab793132ba4ec371ba6a305237a0a"
+    },
+    "rag-report": {
+      "kind": "report",
+      "pages": 21,
+      "width": 1600,
+      "height": 2263,
+      "poster": [
+        400,
+        566
+      ],
+      "pdf": {
+        "path": "pdf/rag-report.pdf",
+        "bytes": 311527,
+        "sha256": "3e4c4ca48b01babca138e920e0c7f82fc1b74a685e69f8cc54ee9c84a1eb1523"
+      },
+      "renderedFrom": "3e4c4ca48b01babca138e920e0c7f82fc1b74a685e69f8cc54ee9c84a1eb1523"
+    },
+    "resnet-transformer-report": {
+      "kind": "report",
+      "pages": 7,
+      "width": 1600,
+      "height": 2263,
+      "poster": [
+        640,
+        905
+      ],
+      "pdf": {
+        "path": "pdf/resnet-transformer-report.pdf",
+        "bytes": 2004727,
+        "sha256": "363a3e8214fb2c3ad0d4299e5e5cae3e462d75aabad79a79cd2d48708a136fb2"
+      },
+      "renderedFrom": "363a3e8214fb2c3ad0d4299e5e5cae3e462d75aabad79a79cd2d48708a136fb2"
+    },
+    "rpca-slides": {
+      "kind": "deck",
+      "pages": 48,
+      "width": 1600,
+      "height": 901,
+      "poster": [
+        640,
+        360
+      ],
+      "pdf": {
+        "path": "pdf/rpca-slides.pdf",
+        "bytes": 5959948,
+        "sha256": "e11f9c729a69a95a2c4f327b9a103f9f14f2e0ecc7a49aaf178880c2ae7ba79e"
+      },
+      "renderedFrom": "e11f9c729a69a95a2c4f327b9a103f9f14f2e0ecc7a49aaf178880c2ae7ba79e",
+      "posterSlide": 2
+    },
+    "spendly-documentation": {
+      "kind": "report",
+      "pages": 92,
+      "width": 1600,
+      "height": 2071,
+      "poster": [
+        640,
+        828
+      ],
+      "pdf": {
+        "path": "pdf/spendly-documentation.pdf",
+        "bytes": 4668135,
+        "sha256": "2b96ee76f5b0c276fc31ba62a125e2e88b979343099a77d07fcde74bdf64ae4c"
+      },
+      "renderedFrom": "2b96ee76f5b0c276fc31ba62a125e2e88b979343099a77d07fcde74bdf64ae4c"
+    }
+  }
+}
