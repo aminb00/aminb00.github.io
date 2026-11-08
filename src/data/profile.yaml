@@ -7,6 +7,9 @@
   roleLine: M.Sc. student in Computer Science and Engineering, University of Bergamo · graduating April 2027
   thesisLine: "M.Sc. thesis in progress at the Control Systems and Automation Laboratory, University of Bergamo · Supervisors: Davide Previtali, Nicola Licini"
   location: Bergamo, Italy
+  # Structured data for search engines (JSON-LD Person on Home).
+  affiliation: University of Bergamo
+  alumniOf: [University of Bergamo]
   email:
     user: aminborqal10
     domain: gmail.com

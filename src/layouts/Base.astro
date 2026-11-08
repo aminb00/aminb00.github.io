@@ -14,10 +14,13 @@ interface Props {
   page: Page;
   /** Replaces the affiliation line under the name (Home uses the role line). */
   line?: string;
+  /** Structured data (JSON-LD), Home only. */
+  jsonLd?: Record<string, unknown>;
 }
 
-const { title, description, page, line } = Astro.props;
+const { title, description, page, line, jsonLd } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL('/og.png', Astro.site).href;
 ---
 <!doctype html>
 <html lang="en">
@@ -27,7 +30,20 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
     <title>{title}</title>
     <meta name="description" content={description}>
     <link rel="canonical" href={canonical}>
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Amin Borqal">
+    <meta property="og:title" content={title}>
+    <meta property="og:description" content={description}>
+    <meta property="og:url" content={canonical}>
+    <meta property="og:image" content={ogImage}>
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Amin Borqal, M.Sc. student, Computer Science and Engineering, University of Bergamo">
+    <meta name="twitter:card" content="summary_large_image">
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
     <style is:inline set:html={CSS}></style>
   </head>
   <body>

@@ -14,7 +14,7 @@ const dropOriginals = {
 
 export default defineConfig({
   // The only place the domain lives (see README, "Custom domain").
-  site: process.env.SITE_URL ?? 'https://aminb00.github.io',
+  site: process.env.SITE_URL || 'https://aminb00.github.io',
   trailingSlash: 'always',
   outDir: process.env.OUT_DIR ?? './dist',
   build: { format: 'directory', inlineStylesheets: 'always' },

@@ -9,12 +9,23 @@ import { fmtBytes } from '../lib/format';
 
 const site = await getSite();
 const p = site.profile;
+const university = (name: string) => ({ '@type': 'CollegeOrUniversity', name });
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: p.name,
+  url: new URL('/', Astro.site).href,
+  affiliation: university(p.affiliation),
+  alumniOf: p.alumniOf.map(university),
+  sameAs: [p.links.github, p.links.linkedin],
+};
 ---
 <Base
   title="Amin Borqal's Home Page"
   description="Amin Borqal, M.Sc. student in Computer Science and Engineering at the University of Bergamo: experience, projects, slides and CV."
   page="home"
   line={p.roleLine}
+  jsonLd={person}
 >
   <section>
     <h2>About</h2>

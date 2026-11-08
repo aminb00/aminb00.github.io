@@ -49,6 +49,9 @@ const profile = defineCollection({
     roleLine: z.string(),
     thesisLine: z.string(),
     location: z.string(),
+    /** For the JSON-LD Person on Home. */
+    affiliation: z.string(),
+    alumniOf: z.array(z.string()).default([]),
     email: z.object({ user: z.string(), domain: z.string() }),
     links: z.object({ github: z.url(), linkedin: z.url() }),
     portrait: z.string(),
