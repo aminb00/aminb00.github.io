@@ -12,5 +12,5 @@ const site = await getSite();
 >
   <h2>Presentations</h2>
   <p>My slides, newest first. Each deck opens on this page.</p>
-  {site.presentations.map((deck) => <DeckItem deck={deck} />)}
+  {site.presentations.map((deck, i) => <DeckItem deck={deck} first={i === 0} />)}
 </Base>

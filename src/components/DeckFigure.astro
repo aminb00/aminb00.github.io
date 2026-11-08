@@ -10,9 +10,11 @@ import { fmtBytes, fmtWhen } from '../lib/format';
 interface Props {
   deck: Deck;
   context: 'home' | 'entry' | 'presentations';
+  /** The first poster of a page, above the fold: load it right away. */
+  eager?: boolean;
 }
 
-const { deck, context } = Astro.props;
+const { deck, context, eager = false } = Astro.props;
 const site = await getSite();
 const info = site.doc(deck.id);
 const pdf = site.deckPdf(deck);
@@ -31,7 +33,8 @@ const sourceUrl = source && 'github' in source ? githubBlob(source.github) : und
       width={info.poster[0] / 2}
       height={info.poster[1] / 2}
       alt={posterSlide === 1 ? `First slide of ${title}` : `Slide ${posterSlide} of ${title}`}
-      loading="lazy"
+      loading={eager ? 'eager' : 'lazy'}
+      fetchpriority={eager ? 'high' : undefined}
       decoding="async"
     >
   </a>

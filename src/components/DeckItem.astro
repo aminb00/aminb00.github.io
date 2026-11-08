@@ -8,9 +8,11 @@ import DeckFigure from './DeckFigure.astro';
 
 interface Props {
   deck: Deck;
+  /** First deck on the page: its poster loads right away. */
+  first?: boolean;
 }
 
-const { deck } = Astro.props;
+const { deck, first = false } = Astro.props;
 const site = await getSite();
 const d = deck.data;
 const meta = [d.label, d.event, d.place, fmtWhen(d.date, d.datesText)].filter(Boolean).join(' · ');
@@ -18,7 +20,7 @@ const meta = [d.label, d.event, d.place, fmtWhen(d.date, d.datesText)].filter(Bo
 <div class="entry">
   <h3 id={deck.id}>{d.title}</h3>
   <p class="meta">{meta}</p>
-  <DeckFigure deck={deck} context="presentations" />
+  <DeckFigure deck={deck} context="presentations" eager={first} />
   <p>
     Related:{' '}
     {d.related.map((id, i) => (
