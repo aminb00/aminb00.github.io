@@ -1,0 +1,36 @@
+# Checks every link of the built site, external ones included, each Monday.
+# LinkedIn blocks bots (excluded in lychee.toml): check that one by hand.
+name: Check links
+
+on:
+  schedule:
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      # Slide images are committed, so the pages build without poppler.
+      - run: npx astro build
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: --config lychee.toml --root-dir ${{ github.workspace }}/dist dist
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
