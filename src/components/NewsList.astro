@@ -1,0 +1,21 @@
+---
+// News & updates: newest first, date in bold, optional link at the end.
+import { getSite } from '../lib/site';
+import { fmtMonth } from '../lib/format';
+
+const site = await getSite();
+const href = (to: string) => (/^https?:\/\//.test(to) ? to : site.resolve(to, 'news'));
+---
+<ul>
+  {site.news.map((n) => (
+    <li>
+      <b><time datetime={n.data.date}>{fmtMonth(n.data.date)}</time></b>:{' '}
+      <Fragment set:html={site.text(n.data.text, `news ${n.id}`)} />
+      {n.data.link && (
+        <Fragment>
+          {' '}<span class="nb">[<a href={href(n.data.link.to)}>{n.data.link.label}</a>]</span>
+        </Fragment>
+      )}
+    </li>
+  ))}
+</ul>

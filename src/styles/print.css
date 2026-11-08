@@ -1,0 +1,18 @@
+/* Printing gives a clean black-on-white document. */
+@media print {
+  body { margin: 0; max-width: none; font-size: 11pt; }
+  a:link, a:visited { color: #000; }
+  nav, .skip, button, .viewer, .poster, .copy-status { display: none !important; }
+  .nb { white-space: normal; }
+  a[href^="http"]::after {
+    content: " <" attr(href) ">";
+    font-size: 0.85em;
+    word-break: break-all;
+  }
+  /* On paper, show what is folded under "More" and "Method". */
+  details::details-content { content-visibility: visible; display: block; }
+  summary { list-style: none; font-weight: bold; }
+  summary::-webkit-details-marker { display: none; }
+  h2, h3 { break-after: avoid; }
+  li { break-inside: avoid; }
+}

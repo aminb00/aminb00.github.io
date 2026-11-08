@@ -1,0 +1,64 @@
+---
+// One education entry: degree as <h3> (anchor = slug), "school · dates", the
+// thesis (its own anchor, e.g. #msc-thesis) and other lines as bullets, key
+// subjects under "More".
+import type { Education } from '../lib/site';
+import { getSite } from '../lib/site';
+import { fmtDates } from '../lib/format';
+import { esc } from '../lib/text';
+import MaterialLine from './MaterialLine.astro';
+
+interface Props {
+  entry: Education;
+}
+
+const { entry } = Astro.props;
+const site = await getSite();
+const e = entry.data;
+const where = `education ${entry.id}`;
+const t = e.thesis;
+
+// "Thesis, in progress, working title <b>...</b>, Lab. Supervisors: A, B."
+// or, for a finished thesis with a project page, "Thesis: <a>Title</a>."
+let thesis = '';
+if (t?.project) {
+  thesis = `Thesis: <a href="${esc(site.resolve(t.project, where))}">${esc(t.title)}</a>.`;
+} else if (t) {
+  const parts = ['Thesis'];
+  if (t.status) parts.push(esc(t.status));
+  parts.push(`${t.workingTitle ? 'working title ' : ''}<b>${esc(t.title)}</b>`);
+  if (t.lab) parts.push(esc(t.lab));
+  thesis = `${parts.join(', ')}.`;
+  if (t.supervisors.length) thesis += ` Supervisors: ${esc(t.supervisors.join(', '))}.`;
+}
+---
+<div class="entry">
+  <h3 id={entry.id}>{e.degree}</h3>
+  <p class="meta">{e.school} · {fmtDates(e)}</p>
+  {(t || e.lines.length > 0) && (
+    <ul>
+      {t && (
+        <li id={t.id}>
+          <Fragment set:html={thesis} />
+          {(t.topic || t.statusText) && (
+            <ul>
+              {t.topic && <li>Topic: <Fragment set:html={site.text(t.topic, where)} /></li>}
+              {t.statusText && <li>Status: {t.statusText}</li>}
+            </ul>
+          )}
+        </li>
+      )}
+      {e.lines.map((line) => <li set:html={site.text(line, where)} />)}
+    </ul>
+  )}
+  <MaterialLine items={e.material} name={e.degree} />
+  {e.subjects.length > 0 && (
+    <details>
+      <summary>More</summary>
+      <p>Key subjects:</p>
+      <ul>
+        {e.subjects.map((s) => <li set:html={site.text(s, where)} />)}
+      </ul>
+    </details>
+  )}
+</div>

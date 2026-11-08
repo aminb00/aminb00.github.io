@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import Filter from '../components/Filter.astro';
+import Project from '../components/Project.astro';
+import { getSite } from '../lib/site';
+
+const site = await getSite();
+---
+<Base
+  title="Projects - Amin Borqal"
+  description="Projects by Amin Borqal in machine learning, control and system identification, information retrieval and LLMs, geospatial data and software."
+  page="projects"
+>
+  <h2>Projects</h2>
+  <p>Course projects and my B.Sc. thesis, with code, slides and reports.</p>
+  <Filter />
+  {site.projects.map((project) => <Project project={project} />)}
+</Base>

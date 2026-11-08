@@ -1,0 +1,35 @@
+# News & updates on Home, newest first (sorted by date at build time).
+# link.to is a slug (details or slides) or a full URL.
+- id: 2026-10-msc-thesis
+  date: 2026-10
+  text: "Started my M.Sc. thesis at the Control Systems and Automation Laboratory (University of Bergamo): blood glucose Model Predictive Control with compartmental recurrent neural networks."
+  link: { label: details, to: msc-thesis }
+
+- id: 2026-06-codemo
+  date: 2026-06
+  text: ROUTEin won 1st place at the CoDEMO 5.0 International Innovation Award in Paris (Industry 5.0 category), among 8 national winners from across Europe.
+  link: { label: slides, to: paris-pitch }
+
+- id: 2026-01-antwerp
+  date: 2026-01
+  text: Finished my research internship at the ADReM Data Lab (Universiteit Antwerpen) and presented the results to the lab.
+  link: { label: details, to: antwerp-internship }
+
+- id: 2025-09-erasmus
+  date: 2025-09
+  text: Started my Erasmus+ semester at Universiteit Antwerpen, Belgium.
+
+- id: 2025-05-routein
+  date: 2025-05
+  text: Started ROUTEin in the UniBg Entrepreneurship Lab CREO, from an industrial challenge by Magris S.p.A.
+  link: { label: details, to: routein }
+
+- id: 2025-02-grins
+  date: 2025-02
+  text: Started a research grant in the PNRR GRINS project (Dept. of Economics, University of Bergamo) on daily emission data for all Italian municipalities.
+  link: { label: details, to: grins }
+
+- id: 2024-12-bsc
+  date: 2024-12
+  text: "B.Sc. in Computer Science and Engineering, University of Bergamo. Thesis: Italian Emission Daily Dataset."
+  link: { label: details, to: iedd }

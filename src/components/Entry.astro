@@ -1,0 +1,36 @@
+---
+// One experience or extracurricular entry: role as <h3> (its anchor is the
+// slug), "organization · place · dates", verbatim bullets, material, decks,
+// and the Details under "More".
+import type { Experience } from '../lib/site';
+import { getSite } from '../lib/site';
+import { fmtDates } from '../lib/format';
+import DeckFigure from './DeckFigure.astro';
+import MaterialLine from './MaterialLine.astro';
+
+interface Props {
+  entry: Experience;
+}
+
+const { entry } = Astro.props;
+const site = await getSite();
+const d = entry.data;
+const where = `experience ${entry.id}`;
+---
+<div class="entry">
+  <h3 id={entry.id}>{d.role}</h3>
+  <p class="meta">{d.org} · {d.place} · {fmtDates(d)}</p>
+  <ul data-verbatim>
+    {d.bullets.map((b) => <li set:html={site.text(b, where)} />)}
+  </ul>
+  <MaterialLine items={d.material} name={d.role} />
+  {site.decksFor(entry.id).map((deck) => <DeckFigure deck={deck} context="entry" />)}
+  {d.details && (
+    <details>
+      <summary>More</summary>
+      <ul>
+        {d.details.map((t) => <li set:html={site.text(t, where)} />)}
+      </ul>
+    </details>
+  )}
+</div>

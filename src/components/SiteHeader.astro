@@ -1,0 +1,33 @@
+---
+// Name, affiliation line, one line of text navigation, rule.
+// The current page is bold and not a link.
+import { getSite } from '../lib/site';
+
+interface Props {
+  page: string;
+  line?: string;
+}
+
+const { page, line } = Astro.props;
+const { profile } = await getSite();
+const items = [
+  { id: 'home', href: '/', label: 'Home' },
+  { id: 'experience', href: '/experience/', label: 'Experience' },
+  { id: 'projects', href: '/projects/', label: 'Projects' },
+  { id: 'presentations', href: '/presentations/', label: 'Presentations' },
+  { id: 'cv', href: '/cv/', label: 'CV' },
+];
+---
+<header>
+  <h1>{profile.name}</h1>
+  <p class="affil">{line ?? profile.affiliationLine}</p>
+  <nav aria-label="Site">
+    {items.map((item, i) => (
+      <Fragment>
+        {i > 0 && ' | '}
+        {item.id === page ? <b aria-current="page">{item.label}</b> : <a href={item.href}>{item.label}</a>}
+      </Fragment>
+    ))}
+  </nav>
+  <hr>
+</header>

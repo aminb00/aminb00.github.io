@@ -1,0 +1,47 @@
+---
+// "Material:" followed by bracketed links. Every PDF shows its size, and a PDF
+// copied from GitHub keeps a "source on GitHub" link. PDFs shown with a poster
+// (ReportFigure) and decks (DeckFigure) are not repeated here. Screen readers
+// hear which entry a link belongs to ("code for ...").
+import type { CollectionEntry } from 'astro:content';
+import { getSite, githubBlob } from '../lib/site';
+import { fmtBytes } from '../lib/format';
+
+type Material = CollectionEntry<'projects'>['data']['material'][number];
+
+interface Props {
+  items: Material[];
+  /** The heading of the entry, read after each link by screen readers. */
+  name: string;
+}
+
+const { items, name } = Astro.props;
+const site = await getSite();
+const shown = items.filter((m) => m.type !== 'todo' && !(m.type === 'pdf' && m.poster));
+---
+{shown.length > 0 && (
+  <p class="material">
+    Material:
+    {shown.map((m) => {
+      if (m.type === 'code' || m.type === 'link') {
+        return (
+          <Fragment>
+            {' '}<span class="nb">[<a href={m.url} hreflang={m.type === 'link' ? m.hreflang : undefined}><Fragment set:html={site.text(m.label, name)} /><span class="vh"> for {name}</span></a>]</span>
+          </Fragment>
+        );
+      }
+      if (m.type !== 'pdf') return null;
+      const pdf = site.materialPdf(m.file, name);
+      return (
+        <Fragment>
+          {' '}<span class="nb">[<a href={pdf.href} hreflang={m.hreflang}><Fragment set:html={site.text(m.label, name)} /> (PDF, {fmtBytes(pdf.bytes)})<span class="vh"> for {name}</span></a>]</span>
+          {m.source && (
+            <Fragment>
+              {' '}<span class="nb">[<a href={githubBlob(m.source.github)}>source on GitHub</a>]</span>
+            </Fragment>
+          )}
+        </Fragment>
+      );
+    })}
+  </p>
+)}

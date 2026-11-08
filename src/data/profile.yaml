@@ -1,0 +1,56 @@
+# Identity, bio and the lists of the CV page. Exactly one entry.
+- id: amin
+  name: Amin Borqal
+  # The line under the name on every page.
+  affiliationLine: M.Sc. student, Computer Science and Engineering, University of Bergamo
+  # On Home this line replaces the one above.
+  roleLine: M.Sc. student in Computer Science and Engineering, University of Bergamo · graduating April 2027
+  thesisLine: "M.Sc. thesis in progress at the Control Systems and Automation Laboratory, University of Bergamo · Supervisors: Davide Previtali, Nicola Licini"
+  location: Bergamo, Italy
+  # Structured data for search engines (JSON-LD Person on Home).
+  affiliation: University of Bergamo
+  alumniOf: [University of Bergamo]
+  email:
+    user: aminborqal10
+    domain: gmail.com
+  links:
+    github: https://github.com/aminb00
+    linkedin: https://www.linkedin.com/in/aminborqal
+  # Drop the files at these paths in public/. Until they exist the page hides them.
+  portrait: img/portrait.jpg
+  cv:
+    file: cv/Amin_Borqal_CV.pdf
+  # Verbatim. Paragraph 2 is a draft.
+  bio:
+    - "M.Sc. student in Computer Science and Engineering at the University of Bergamo, with a background in GeoStatistics, AI & ML Engineering and Data Engineering. I am driven by problems that sit at the intersection of mathematical modelling and real world impact. Organized, cheerful, and curious, I thrive in dynamic, multicultural environments. I like moving from solving technical problems to designing and managing the solution."
+    - "I am now working on my M.Sc. thesis on blood glucose control for the artificial pancreas: compartmental recurrent neural networks used as the prediction model inside a Model Predictive Control scheme."
+  interests:
+    - Machine Learning and Deep Learning
+    - System Identification and Control (Model Predictive Control)
+    - Geostatistics and spatio-temporal data
+    - Information Retrieval and LLM applications (RAG)
+    - Data Engineering and HPC
+  # Slugs from experience.yaml or projects.yaml, shown on Home in this order.
+  selectedWork: [routein, antwerp-internship, rpca]
+  # Decks shown on Home with their poster and viewer (the others get a [slides] link).
+  homeDecks: [paris-pitch, antwerp-slides, rpca-slides]
+  # Not written yet: the Off-duty section stays hidden.
+  offDuty: TODO
+  skills:
+    - group: Programming
+      items: [Python, R, MATLAB, Java, C++, SQL, LaTeX]
+    - group: Machine Learning and data
+      items: [PyTorch, scikit-learn, statsmodels, PyGAM, pandas, NumPy]
+    - group: IR and LLM
+      items: [RAG, GPT-4o / OpenAI API, LangGraph, sentence-transformers, FAISS, Ollama]
+    - group: Geospatial
+      items: [QGIS, Google Earth Engine, Landsat, CAMS inventories]
+    - group: Infrastructure and tools
+      items: [HPC with SLURM, Git, GitHub, MySQL, Claude Code]
+    - group: Web
+      items: [JavaScript, Vue.js, Flask, Spring Boot (REST APIs), HTML, CSS]
+  languages:
+    - { name: Italian, level: native }
+    - { name: Moroccan Arabic, level: native }
+    - { name: English, level: professional }
+    - { name: French, level: basic }

@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import Email from '../components/Email.astro';
+import NewsList from '../components/NewsList.astro';
+import Portrait from '../components/Portrait.astro';
+import SelectedWork from '../components/SelectedWork.astro';
+import { getSite } from '../lib/site';
+import { fmtBytes } from '../lib/format';
+
+const site = await getSite();
+const p = site.profile;
+const university = (name: string) => ({ '@type': 'CollegeOrUniversity', name });
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: p.name,
+  url: new URL('/', Astro.site).href,
+  affiliation: university(p.affiliation),
+  alumniOf: p.alumniOf.map(university),
+  sameAs: [p.links.github, p.links.linkedin],
+};
+---
+<Base
+  title="Amin Borqal's Home Page"
+  description="Amin Borqal, M.Sc. student in Computer Science and Engineering at the University of Bergamo: experience, projects, slides and CV."
+  page="home"
+  line={p.roleLine}
+  jsonLd={person}
+>
+  <section>
+    <h2>About</h2>
+    <Portrait />
+    <p>{p.thesisLine}</p>
+    {p.bio.map((t) => <p data-verbatim set:html={site.text(t, 'profile.bio')} />)}
+    <h3>Interests</h3>
+    <ul>
+      {p.interests.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+  <hr>
+  <section>
+    <h2>Contact</h2>
+    <p>
+      <Email copy />{' '}
+      <span class="nb">[<a href={p.links.linkedin}>LinkedIn</a>]</span>{' '}
+      <span class="nb">[<a href={p.links.github}>GitHub</a>]</span>{' '}
+      <span class="nb">[CV: {site.cv && <Fragment><a href={site.cv.href}>PDF, {fmtBytes(site.cv.bytes)}</a> | </Fragment>}<a href="/cv.txt">text</a>]</span>
+    </p>
+  </section>
+  <hr>
+  <section>
+    <h2>News &amp; updates</h2>
+    <NewsList />
+  </section>
+  <hr>
+  <section>
+    <h2>Selected work</h2>
+    <SelectedWork />
+  </section>
+  {p.offDuty && (
+    <Fragment>
+      <hr>
+      <section>
+        <h2>Off-duty</h2>
+        <p set:html={site.text(p.offDuty, 'profile.offDuty')} />
+      </section>
+    </Fragment>
+  )}
+</Base>

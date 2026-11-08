@@ -1,0 +1,13 @@
+# dependencies and build output
+node_modules/
+dist/
+dist-*/
+.astro/
+
+# downloaded originals (never committed) and temporary files
+.cache/
+
+# screenshots for review
+proof/
+
+.DS_Store
