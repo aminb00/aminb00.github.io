@@ -15,7 +15,8 @@
     - MATLAB
   summary: Built a real-time fault diagnosis system (Recursive PCA, Li et al. 2000) for predictive maintenance of non-stationary industrial processes, telling genuine sensor faults apart from benign process drift that defeats fixed-model PCA.
   summaryVerbatim: true
-  result: "false-alarm rate from `32.6%` to near-nominal, step-fault detection above `81%`, on a synthetic multi-sensor dataset with simultaneous drifts and impulsive, incipient and step faults."
+  # Numbers from the conclusion slide of the deck (slide 46).
+  result: "false-alarm rate reduced from `44.6%` to `10.2%` with block-wise RPCA (`B = 10`, `λ = 0.995`); detection rate `95%` for impulsive, `73%` for incipient and `42%` for step faults, on a synthetic multi-sensor dataset with simultaneous drifts and impulsive, incipient and step faults."
   method: "adaptive RPCA with EWMA covariance tracking and incremental eigenstructure updates (Lanczos tridiagonalization, Sturm-sequence bisection, inverse iteration), avoiding full SVD, with VRE-based component selection."
   tags: [control, ml]
   material:
@@ -36,7 +37,7 @@
       label: "`DataPreparation` live script"
       file: rpca-livescript-data-preparation.pdf
       source: { github: { repo: aminb00/Adaptive-Fault-Detection-under-Process-Drift-using-Recursive-PCA, path: "LIVESCRIPTS-HTML&PDF/DataPreparation.pdf" } }
-  oneLine: "**Adaptive Fault Detection under Process Drift using Recursive PCA**, course project, University of Bergamo, 2026: false-alarm rate from `32.6%` to near-nominal, step-fault detection above `81%`."
+  oneLine: "**Adaptive Fault Detection under Process Drift using Recursive PCA**, course project, University of Bergamo, 2026: false-alarm rate reduced from `44.6%` to `10.2%`."
 
 - id: rag
   title: RAG System for University Knowledge Access
@@ -187,7 +188,8 @@
     - A.Y. 2024/25
     - Python
   summary: "predicting aircraft prices from technical features (Kaggle dataset, 497 observations, 14 variables, prices from $50K to $15M), with a log transform, linear, Ridge, LASSO, GAM and tree-based models, and bootstrap inference."
-  result: "best model: LASSO."
+  # From the "Which One Is The Best Model?" slide of the deck (slide 66).
+  result: "best model: Bagging (Extra Trees), with the lowest RMSE (`$261,871`) and the highest R² (`0.9110`)."
   tags: [ml]
   material:
     - type: code
