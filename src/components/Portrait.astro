@@ -6,7 +6,7 @@ import { getSite } from '../lib/site';
 const { portrait, profile } = await getSite();
 ---
 {portrait ? (
-  <img class="portrait" src={portrait.src} width={portrait.width} height={portrait.height} alt={profile.name}>
+  <img class="portrait" src={portrait.src} width={portrait.width} height={portrait.height} alt={profile.name} fetchpriority="high">
 ) : (
   <div class="portrait placeholder" aria-hidden="true">photo</div>
 )}
