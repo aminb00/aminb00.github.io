@@ -163,5 +163,11 @@
       },
       "renderedFrom": "2b96ee76f5b0c276fc31ba62a125e2e88b979343099a77d07fcde74bdf64ae4c"
     }
+  },
+  "portrait": {
+    "src": "/img/portrait.webp",
+    "width": 150,
+    "height": 170,
+    "sha256": "6ccf714718ee3ab0d2b0cc3d1aa4a1a89be0417cae845d9c8e3e6908cc2926dd"
   }
 }
