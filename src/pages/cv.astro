@@ -5,7 +5,7 @@ import Base from '../layouts/Base.astro';
 import { getSite } from '../lib/site';
 import { fmtBytes, fmtDay } from '../lib/format';
 
-const { profile, cv } = await getSite();
+const { profile, cv, cvIt } = await getSite();
 ---
 <Base
   title="CV - Amin Borqal"
@@ -17,7 +17,12 @@ const { profile, cv } = await getSite();
   <p>
     {cv && (
       <Fragment>
-        <span class="nb">[<a href={cv.href}>PDF, {fmtBytes(cv.bytes)}</a>]</span>{' '}
+        <span class="nb">[<a href={cv.href}>English (PDF, {fmtBytes(cv.bytes)})</a>]</span>{' '}
+      </Fragment>
+    )}
+    {cvIt && (
+      <Fragment>
+        <span class="nb">[<a href={cvIt.href} hreflang="it">Italiano (PDF, {fmtBytes(cvIt.bytes)})</a>]</span>{' '}
       </Fragment>
     )}
     <span class="nb">[<a href="/cv.txt">plain text</a>]</span>

@@ -66,6 +66,22 @@
       "renderedFrom": "d0f81ad99f21505197f576bded86586bebc7fa7b09777b8fa8dc35f6efbc8054",
       "posterSlide": 2
     },
+    "cv": {
+      "kind": "report",
+      "pages": 2,
+      "width": 1600,
+      "height": 2263,
+      "poster": [
+        400,
+        566
+      ],
+      "pdf": {
+        "path": "cv/Amin_Borqal_CV.pdf",
+        "bytes": 57910,
+        "sha256": "dc74bde19471ad10188a5bc5af99f9619b0e943567e9f8fc51b97f824c5c82e7"
+      },
+      "renderedFrom": "dc74bde19471ad10188a5bc5af99f9619b0e943567e9f8fc51b97f824c5c82e7"
+    },
     "istanbul-gee-report": {
       "kind": "report",
       "pages": 6,

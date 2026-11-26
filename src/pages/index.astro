@@ -43,8 +43,17 @@ const person = {
     <p>
       <Email copy />{' '}
       <span class="nb">[<a href={p.links.linkedin}>LinkedIn</a>]</span>{' '}
-      <span class="nb">[<a href={p.links.github}>GitHub</a>]</span>{' '}
-      <span class="nb">[CV: {site.cv && <Fragment><a href={site.cv.href}>PDF, {fmtBytes(site.cv.bytes)}</a> | </Fragment>}<a href="/cv.txt">text</a>]</span>
+      <span class="nb">[<a href={p.links.github}>GitHub</a>]</span>
+      {site.cv && (
+        <Fragment>
+          {' '}<span class="nb">[<a href={site.cv.href}>CV English (PDF, {fmtBytes(site.cv.bytes)})</a>]</span>
+        </Fragment>
+      )}
+      {site.cvIt && (
+        <Fragment>
+          {' '}<span class="nb">[<a href={site.cvIt.href} hreflang="it">CV Italiano (PDF, {fmtBytes(site.cvIt.bytes)})</a>]</span>
+        </Fragment>
+      )}
     </p>
   </section>
   <hr>
