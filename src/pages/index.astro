@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Email from '../components/Email.astro';
+import Icon from '../components/Icon.astro';
 import NewsList from '../components/NewsList.astro';
 import Portrait from '../components/Portrait.astro';
 import SelectedWork from '../components/SelectedWork.astro';
@@ -40,21 +41,21 @@ const person = {
   <hr>
   <section>
     <h2>Contact</h2>
-    <p>
-      <Email copy />{' '}
-      <span class="nb">[<a href={p.links.linkedin}>LinkedIn</a>]</span>{' '}
-      <span class="nb">[<a href={p.links.github}>GitHub</a>]</span>
+    <ul class="contact">
+      <li class="mail"><Icon name="mail" /><Email copy /></li>
+      <li><a href={p.links.linkedin}><Icon name="linkedin" /><span class="label">LinkedIn</span></a></li>
+      <li><a href={p.links.github}><Icon name="github" /><span class="label">GitHub</span></a></li>
       {site.cv && (
-        <Fragment>
-          {' '}<span class="nb">[<a href={site.cv.href}>CV English (PDF, {fmtBytes(site.cv.bytes)})</a>]</span>
-        </Fragment>
+        <li>
+          <a href={site.cv.href}><Icon name="cv" /><span class="label">CV EN</span> <span class="size">PDF, {fmtBytes(site.cv.bytes)}</span></a>
+        </li>
       )}
       {site.cvIt && (
-        <Fragment>
-          {' '}<span class="nb">[<a href={site.cvIt.href} hreflang="it">CV Italiano (PDF, {fmtBytes(site.cvIt.bytes)})</a>]</span>
-        </Fragment>
+        <li>
+          <a href={site.cvIt.href} hreflang="it"><Icon name="cv" /><span class="label">CV IT</span> <span class="size">PDF, {fmtBytes(site.cvIt.bytes)}</span></a>
+        </li>
       )}
-    </p>
+    </ul>
   </section>
   <hr>
   <section>
