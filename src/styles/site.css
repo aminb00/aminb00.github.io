@@ -92,6 +92,25 @@ header nav { margin: 0.5em 0 1em; }
 .entry h3 { margin-bottom: 0.25em; }
 .entry .meta { margin-top: 0; }
 
+/* Contact on Home: one row of icon links (wraps on phones). */
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6em 1.6em;
+  margin: 1em 0;
+  padding: 0;
+  list-style: none;
+}
+.contact li { display: inline-flex; align-items: center; gap: 0.45em; }
+.contact .mail { flex-basis: 100%; }
+.contact a { display: inline-flex; align-items: center; gap: 0.45em; text-decoration: none; }
+.contact a .label, .contact .mail a { text-decoration: underline; }
+.contact .icon { flex: none; width: 1.1em; height: 1.1em; }
+.contact li > .icon { color: #0000ee; }
+.contact .size { font-size: 0.8em; color: #555; }
+.contact .copy-status:empty { display: none; }
+
 /* Project filter: the active choice is bold. */
 .filter { margin: 1em 0; }
 .filter a[aria-current] { font-weight: bold; }

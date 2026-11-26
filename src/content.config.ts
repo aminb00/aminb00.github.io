@@ -55,7 +55,8 @@ const profile = defineCollection({
     email: z.object({ user: z.string(), domain: z.string() }),
     links: z.object({ github: z.url(), linkedin: z.url() }),
     portrait: z.string(),
-    cv: z.object({ file: z.string(), updated: z.string().optional() }),
+    /** file: English CV (also the first-page image and "Last updated"); fileIt: Italian CV. */
+    cv: z.object({ file: z.string(), fileIt: z.string().optional(), updated: z.string().optional() }),
     bio: z.array(z.string()).min(1),
     interests: z.array(z.string()),
     selectedWork: z.array(slug),

@@ -20,23 +20,9 @@
   method: "adaptive RPCA with EWMA covariance tracking and incremental eigenstructure updates (Lanczos tridiagonalization, Sturm-sequence bisection, inverse iteration), avoiding full SVD, with VRE-based component selection."
   tags: [control, ml]
   material:
+    # The MATLAB live scripts stay in the repo: only the repo is linked here.
     - type: code
       url: https://github.com/aminb00/Adaptive-Fault-Detection-under-Process-Drift-using-Recursive-PCA
-    - type: pdf
-      id: rpca-livescript-rpca
-      label: "`RPCA` live script"
-      file: rpca-livescript-rpca.pdf
-      source: { github: { repo: aminb00/Adaptive-Fault-Detection-under-Process-Drift-using-Recursive-PCA, path: "LIVESCRIPTS-HTML&PDF/RPCA.pdf" } }
-    - type: pdf
-      id: rpca-livescript-pca-batch
-      label: "`PCA_batch` live script"
-      file: rpca-livescript-pca-batch.pdf
-      source: { github: { repo: aminb00/Adaptive-Fault-Detection-under-Process-Drift-using-Recursive-PCA, path: "LIVESCRIPTS-HTML&PDF/PCA_batch.pdf" } }
-    - type: pdf
-      id: rpca-livescript-data-preparation
-      label: "`DataPreparation` live script"
-      file: rpca-livescript-data-preparation.pdf
-      source: { github: { repo: aminb00/Adaptive-Fault-Detection-under-Process-Drift-using-Recursive-PCA, path: "LIVESCRIPTS-HTML&PDF/DataPreparation.pdf" } }
   oneLine: "**Adaptive Fault Detection under Process Drift using Recursive PCA**, course project, University of Bergamo, 2026: false-alarm rate reduced from `44.6%` to `10.2%`."
 
 - id: rag

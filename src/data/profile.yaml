@@ -19,7 +19,8 @@
   # Drop the files at these paths in public/. Until they exist the page hides them.
   portrait: img/portrait.jpg
   cv:
-    file: cv/Amin_Borqal_CV.pdf
+    file: cv/Amin_Borqal_CV.pdf        # English
+    fileIt: cv/Amin_Borqal_CV_IT.pdf   # Italian
   # Verbatim. Paragraph 2 is a draft.
   bio:
     - "M.Sc. student in Computer Science and Engineering at the University of Bergamo, with a background in GeoStatistics, AI & ML Engineering and Data Engineering. I am driven by problems that sit at the intersection of mathematical modelling and real world impact. Organized, cheerful, and curious, I thrive in dynamic, multicultural environments. I like moving from solving technical problems to designing and managing the solution."

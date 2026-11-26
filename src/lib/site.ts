@@ -199,6 +199,11 @@ async function load() {
         poster: manifest.docs.cv,
       }
     : undefined;
+  const cvItFile = profile.cv.fileIt ? path.join(PUBLIC, profile.cv.fileIt) : undefined;
+  const cvIt =
+    cvItFile && fs.existsSync(cvItFile)
+      ? { href: `/${profile.cv.fileIt}`, bytes: fs.statSync(cvItFile).size }
+      : undefined;
   const portrait = manifest.portrait;
 
   return {
@@ -218,6 +223,7 @@ async function load() {
     decksFor,
     entry,
     cv,
+    cvIt,
     portrait,
   };
 }
